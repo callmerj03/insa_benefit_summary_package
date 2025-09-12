@@ -78,54 +78,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   var zoneAndCopayment = ":zoneAndCopayment";
   var cataractCoverage = ":cataractCoverage";
 
-  bool isLoading = true;
-
-  // bool? isPaid = null;
-  String kypFeeAmount = "";
-
-  // void call() {
-  //   Provider.of<HealthQualityCheckProvider>(context, listen: false).getHealthPolicyDataOverView(
-  //     widget.policyId ?? '',
-  //     (valueBenefit) async {
-  //
-  //
-  //       checkPaymentStatusOfLifeHealthPolicy(
-  //         context: context,
-  //         policyId: widget.policyId!,
-  //         response: (bool? _isPaid, String _kypFeeAmount, String insuranceTypeId) {
-  //           kypFeeAmount = _kypFeeAmount;
-  //           isPaid = _isPaid;
-  //           if (isPaid == true) {
-  //             Provider.of<UserPolicyPortfolioProvider>(context, listen: false).getUserPolicyPortfolio(source: 'kyp');
-  //           }
-  //           parseJson(valueBenefit);
-  //         },
-  //       );
-  //     },
-  //     () {
-  //       moveToResultScreen();
-  //     },
-  //   );
-  // }
-
-  // void fetchData() {
-  //   isLoading = true;
-  //
-  //   if (kDebugMode) {
-  //     widget.policyId = "d904c4b6-e3d8-49bc-b61b-0852245d75b5";
-  //   }
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     call();
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   fetchData();
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -389,7 +341,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
             }
           }
 
-          isLoading = false;
           setState(() {});
         }
       }
@@ -767,189 +718,187 @@ class _BenefitSummaryState extends State<BenefitSummary> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          //
-          Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [BoxShadow(offset: Offset(4, 4), blurRadius: 8, color: Colors.grey.withOpacity(0.5))],
-                ),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        //
-                        if (hospitalList.isNotEmpty)
-                          summaryCard(
-                            image: Images.img_hosp_benefit_summary,
-                            color: AppColors().light_peacock,
-                            borderColor: AppColors().peacock,
-                            indicatorWidth: version == 1 ? 160 : 200,
-                            text: version == 2 ? 'Coverages & Limits' : 'Hosp. Benefits',
-                            isSelected: selectedCard == hospital_limit_coverage ? true : false,
-                            click: () {
-                              selectCard(hospital_limit_coverage, scrollpageview: true);
+    return Stack(
+      children: [
+        //
+        Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(offset: Offset(4, 4), blurRadius: 8, color: Colors.grey.withOpacity(0.5))],
+              ),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      //
+                      if (hospitalList.isNotEmpty)
+                        summaryCard(
+                          image: Images.img_hosp_benefit_summary,
+                          color: AppColors().light_peacock,
+                          borderColor: AppColors().peacock,
+                          indicatorWidth: version == 1 ? 160 : 200,
+                          text: version == 2 ? 'Coverages & Limits' : 'Hosp. Benefits',
+                          isSelected: selectedCard == hospital_limit_coverage ? true : false,
+                          click: () {
+                            selectCard(hospital_limit_coverage, scrollpageview: true);
 
-                              // if (kDebugMode) {
-                              //   fetchData();
-                              // }
-                            },
-                            key: hospitalCardKey,
+                            // if (kDebugMode) {
+                            //   fetchData();
+                            // }
+                          },
+                          key: hospitalCardKey,
+                          indicatorColor: getColorDark(selectedCard: selectedCard),
+                        ),
+
+                      //
+                      if (otherList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: summaryCard(
+                            indicatorWidth: version == 1 ? 160 : 220,
+                            image: Images.img_other_benefit_summary,
+                            color: AppColors().bottelGreen_light,
+                            borderColor: AppColors().bottelGreen,
+                            text: version == 2 ? 'Other Benefits & Limits' : 'Other Benefits',
                             indicatorColor: getColorDark(selectedCard: selectedCard),
+                            isSelected: selectedCard == other_benefits ? true : false,
+                            click: () {
+                              selectCard(other_benefits, scrollpageview: true);
+                            },
+                            key: otherCardKey,
                           ),
+                        ),
 
-                        //
-                        if (otherList.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: summaryCard(
-                              indicatorWidth: version == 1 ? 160 : 220,
-                              image: Images.img_other_benefit_summary,
-                              color: AppColors().bottelGreen_light,
-                              borderColor: AppColors().bottelGreen,
-                              text: version == 2 ? 'Other Benefits & Limits' : 'Other Benefits',
-                              indicatorColor: getColorDark(selectedCard: selectedCard),
-                              isSelected: selectedCard == other_benefits ? true : false,
-                              click: () {
-                                selectCard(other_benefits, scrollpageview: true);
-                              },
-                              key: otherCardKey,
-                            ),
+                      //
+                      if (waitignPeriodList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: summaryCard(
+                            indicatorWidth: version == 1 ? 160 : 160,
+                            image: Images.img_waiting_benefit_summary,
+                            color: AppColors().orange_light,
+                            borderColor: AppColors().orange,
+                            text: 'Waiting Periods',
+                            indicatorColor: getColorDark(selectedCard: selectedCard),
+                            isSelected: selectedCard == waiting_periods ? true : false,
+                            click: () {
+                              selectCard(waiting_periods, scrollpageview: true);
+                            },
+                            key: waitingCardKey,
                           ),
+                        ),
 
-                        //
-                        if (waitignPeriodList.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: summaryCard(
-                              indicatorWidth: version == 1 ? 160 : 160,
-                              image: Images.img_waiting_benefit_summary,
-                              color: AppColors().orange_light,
-                              borderColor: AppColors().orange,
-                              text: 'Waiting Periods',
-                              indicatorColor: getColorDark(selectedCard: selectedCard),
-                              isSelected: selectedCard == waiting_periods ? true : false,
-                              click: () {
-                                selectCard(waiting_periods, scrollpageview: true);
-                              },
-                              key: waitingCardKey,
-                            ),
+                      //
+                      if (exclusionList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: summaryCard(
+                            indicatorWidth: version == 1 ? 140 : 140,
+                            image: Images.img_exclusion_benefit_summary,
+                            color: AppColors().cherryRed_light,
+                            borderColor: AppColors().cherryRed,
+                            text: 'Exclusions',
+                            indicatorColor: getColorDark(selectedCard: selectedCard),
+                            isSelected: selectedCard == exclusion ? true : false,
+                            click: () {
+                              selectCard(exclusion, scrollpageview: true);
+                            },
+                            key: exclusionCardKey,
                           ),
-
-                        //
-                        if (exclusionList.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: summaryCard(
-                              indicatorWidth: version == 1 ? 140 : 140,
-                              image: Images.img_exclusion_benefit_summary,
-                              color: AppColors().cherryRed_light,
-                              borderColor: AppColors().cherryRed,
-                              text: 'Exclusions',
-                              indicatorColor: getColorDark(selectedCard: selectedCard),
-                              isSelected: selectedCard == exclusion ? true : false,
-                              click: () {
-                                selectCard(exclusion, scrollpageview: true);
-                              },
-                              key: exclusionCardKey,
-                            ),
-                          ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
               ),
+            ),
 
-              //
-              HeightSpace(height: 16),
+            //
+            HeightSpace(height: 16),
 
-              Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      selectedCard = benefitSummaryStatusList[index];
-                    });
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    selectedCard = benefitSummaryStatusList[index];
+                  });
 
-                    scrollController.position.ensureVisible(
-                      getKey(selectedCard: selectedCard).currentContext!.findRenderObject()!,
-                      alignment: 0.3,
-                      // How far into view the item should be scrolled (between 0 and 1).
-                      duration: const Duration(seconds: 1),
-                    );
-                  },
-                  children: [
-                    //
-                    //
-                    if (hospitalList.isNotEmpty) content(selectedCard: hospital_limit_coverage),
-                    //
-                    if (otherList.isNotEmpty) content(selectedCard: other_benefits),
-                    //
-                    if (waitignPeriodList.isNotEmpty) content(selectedCard: waiting_periods),
-                    //
-                    if (exclusionList.isNotEmpty) content(selectedCard: exclusion),
-                  ],
-                ),
+                  scrollController.position.ensureVisible(
+                    getKey(selectedCard: selectedCard).currentContext!.findRenderObject()!,
+                    alignment: 0.3,
+                    // How far into view the item should be scrolled (between 0 and 1).
+                    duration: const Duration(seconds: 1),
+                  );
+                },
+                children: [
+                  //
+                  //
+                  if (hospitalList.isNotEmpty) content(selectedCard: hospital_limit_coverage),
+                  //
+                  if (otherList.isNotEmpty) content(selectedCard: other_benefits),
+                  //
+                  if (waitignPeriodList.isNotEmpty) content(selectedCard: waiting_periods),
+                  //
+                  if (exclusionList.isNotEmpty) content(selectedCard: exclusion),
+                ],
               ),
-              //
+            ),
+            //
 
-              //
+            //
 
-              //
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColors().pure_white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(30, 31, 32, 0.08),
-                      blurRadius: 6.0, // soften the shadow
-                      offset: Offset(
-                        0.0, // Move to right 10  horizontally
-                        -6.0, // Move to bottom 10 Vertically
-                      ),
+            //
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors().pure_white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(30, 31, 32, 0.08),
+                    blurRadius: 6.0, // soften the shadow
+                    offset: Offset(
+                      0.0, // Move to right 10  horizontally
+                      -6.0, // Move to bottom 10 Vertically
                     ),
-                  ],
-                ),
-                child:
-                    // selectedCard == 3 ?
-                    widget.amountPopup,
-                // primaryButton(
-                //   fontSize: 15,
-                //   text: "Next",
-                //   onTap: () {
-                //     if (selectedCard != benefitSummaryStatusList[benefitSummaryStatusList.length - 1]) {
-                //       getStatus();
-                //     } else {
-                //       widget.moveToResultScreen();
-                //     }
-                //   },
-                // ),
+                  ),
+                ],
               ),
-            ],
-          ),
+              child:
+                  // selectedCard == 3 ?
+                  widget.amountPopup,
+              // primaryButton(
+              //   fontSize: 15,
+              //   text: "Next",
+              //   onTap: () {
+              //     if (selectedCard != benefitSummaryStatusList[benefitSummaryStatusList.length - 1]) {
+              //       getStatus();
+              //     } else {
+              //       widget.moveToResultScreen();
+              //     }
+              //   },
+              // ),
+            ),
+          ],
+        ),
 
-          //
-          // Blurry overlay
-          if (widget.isPaid == false) widget.amountPopup,
-          // AmountPopup(
-          //   policyId: widget.policyId ?? "",
-          //   amount: kypFeeAmount,
-          //   success: () {
-          //     call();
-          //   },
-          // ),
-        ],
-      ),
+        //
+        // Blurry overlay
+        if (widget.isPaid == false) widget.amountPopup,
+        // AmountPopup(
+        //   policyId: widget.policyId ?? "",
+        //   amount: kypFeeAmount,
+        //   success: () {
+        //     call();
+        //   },
+        // ),
+      ],
     );
   }
 
