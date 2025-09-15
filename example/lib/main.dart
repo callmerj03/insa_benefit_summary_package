@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insa_benefit_summary_package/AppColors.dart';
 import 'package:insa_benefit_summary_package/BenefitSummary/BenefitSummary.dart';
 
 void main() {
@@ -383,14 +384,16 @@ class MyApp extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
         ),
       ),
-      home: Container(
-        child: BenefitSummary(
-          amountPopup: Container(),
-          isPaid: true,
-          jsonObject: map,
-          moveToResultScreen: () {},
-          primaryButton: Container(),
-          policyId: "",
+      home: Scaffold(
+        body: SafeArea(
+          child: BenefitSummary(
+            amountPopup: Container(),
+            isPaid: true,
+            jsonObject: map,
+            moveToResultScreen: () {},
+            buttonColor: AppColors().primaryThemeColor,
+            policyId: "",
+          ),
         ),
       ),
     );

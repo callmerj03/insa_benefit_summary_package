@@ -390,8 +390,8 @@ class MyApp extends StatelessWidget {
           isPaid: true,
           jsonObject: map,
           moveToResultScreen: () {},
-          primaryButton: Container(),
           policyId: "",
+          buttonColor: Colors.orange,
         ),
       ),
     );

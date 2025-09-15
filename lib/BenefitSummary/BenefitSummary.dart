@@ -12,6 +12,7 @@ import '../Models/KeyValueModel.dart';
 import '../Models/ZoneAndCopaymentModel.dart';
 import '../NoDataFound.dart';
 import '../infoDataBottomSheet.dart';
+import '../primaryButton.dart';
 import '../sub_limit_bottom_sheet.dart';
 import 'BenefitTextParse.dart';
 import 'PolifyxTextStyles.dart';
@@ -22,9 +23,10 @@ class BenefitSummary extends StatefulWidget {
   String? policyId;
   bool? isPaid;
   Widget amountPopup;
-  Widget primaryButton;
+  bool isButtonAnimationAllowed;
   Map<String, dynamic> jsonObject;
   Function() moveToResultScreen;
+  Color buttonColor;
 
   BenefitSummary({
     super.key,
@@ -32,8 +34,9 @@ class BenefitSummary extends StatefulWidget {
     required this.moveToResultScreen,
     required this.isPaid,
     required this.amountPopup,
-    required this.primaryButton,
     required this.jsonObject,
+    required this.buttonColor,
+    this.isButtonAnimationAllowed = true,
   });
 
   @override
@@ -554,11 +557,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Container(
-                                                child: Image.asset(
-                                                  selectedCard == exclusion ? Images.img_cancel : Images.greenTickPng,
-                                                  width: selectedCard == exclusion ? 14 : 16,
-                                                  color: getColorDark(selectedCard: selectedCard),
-                                                ),
                                                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                                                 decoration: BoxDecoration(
                                                   borderRadius: index == 0
@@ -567,6 +565,11 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                           ? BorderRadius.only(bottomLeft: Radius.circular(10))
                                                           : null,
                                                   color: getColor(selectedCard: selectedCard).withOpacity(0.4),
+                                                ),
+                                                child: Image.asset(
+                                                  selectedCard == exclusion ? Images.img_cancel : Images.greenTickPng,
+                                                  width: selectedCard == exclusion ? 14 : 16,
+                                                  color: getColorDark(selectedCard: selectedCard),
                                                 ),
                                               ),
                                               WidthSpace(width: 16),
@@ -599,6 +602,13 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Container(
+                                          decoration: BoxDecoration(
+                                            color: getColor(selectedCard: selectedCard).withOpacity(0.5),
+                                            borderRadius: index != 0
+                                                ? null
+                                                : BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                                          ),
+                                          padding: EdgeInsets.only(left: 16, bottom: 8, right: 16, top: index == 0 ? 16 : 8),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -609,13 +619,13 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
+                                                    margin: EdgeInsets.only(top: 4),
                                                     child: Image.asset(
                                                       Images.greenTickPng,
                                                       width: 16,
                                                       height: 16,
                                                       color: getColorDark(selectedCard: selectedCard),
                                                     ),
-                                                    margin: EdgeInsets.only(top: 4),
                                                   ),
                                                   WidthSpace(width: 8),
                                                   if (item.key != null)
@@ -631,13 +641,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                               ),
                                             ],
                                           ),
-                                          decoration: BoxDecoration(
-                                            color: getColor(selectedCard: selectedCard).withOpacity(0.5),
-                                            borderRadius: index != 0
-                                                ? null
-                                                : BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                                          ),
-                                          padding: EdgeInsets.only(left: 16, bottom: 8, right: 16, top: index == 0 ? 16 : 8),
                                         ),
                                         Padding(
                                           padding: (disclaimerTexts ?? "").isNotEmpty
@@ -647,14 +650,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                         ),
                                         if ((disclaimerTexts ?? "").isNotEmpty)
                                           Container(
-                                            child: Container(
-                                              padding: EdgeInsets.all(4),
-                                              child: Text(disclaimerTexts!, style: textStyle.cta2.copyWith(fontSize: 12)),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(topRight: Radius.circular(8)),
-                                              ),
-                                            ),
                                             margin: EdgeInsets.only(left: 16, top: 8, right: 16),
                                             padding: EdgeInsets.only(left: 8, top: 1),
                                             decoration: BoxDecoration(
@@ -671,6 +666,14 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                   offset: Offset(3, 0), // changes position of shadow
                                                 ),
                                               ],
+                                            ),
+                                            child: Container(
+                                              padding: EdgeInsets.all(4),
+                                              child: Text(disclaimerTexts!, style: textStyle.cta2.copyWith(fontSize: 12)),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(topRight: Radius.circular(8)),
+                                              ),
                                             ),
                                           ),
                                       ],
@@ -870,20 +873,19 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                   ),
                 ],
               ),
-              child:
-                  // selectedCard == 3 ?
-                  widget.amountPopup,
-              // primaryButton(
-              //   fontSize: 15,
-              //   text: "Next",
-              //   onTap: () {
-              //     if (selectedCard != benefitSummaryStatusList[benefitSummaryStatusList.length - 1]) {
-              //       getStatus();
-              //     } else {
-              //       widget.moveToResultScreen();
-              //     }
-              //   },
-              // ),
+              child: primaryButton(
+                fontSize: 15,
+                text: "Next",
+                backgroundColor: widget.buttonColor,
+                debounceEnabled: widget.isButtonAnimationAllowed,
+                onTap: () {
+                  if (selectedCard != benefitSummaryStatusList[benefitSummaryStatusList.length - 1]) {
+                    getStatus();
+                  } else {
+                    widget.moveToResultScreen();
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -891,13 +893,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
         //
         // Blurry overlay
         if (widget.isPaid == false) widget.amountPopup,
-        // AmountPopup(
-        //   policyId: widget.policyId ?? "",
-        //   amount: kypFeeAmount,
-        //   success: () {
-        //     call();
-        //   },
-        // ),
       ],
     );
   }
@@ -1196,8 +1191,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                       showDuration: Duration(seconds: 5),
                       message: tooltip,
                       child: Container(
-                        child: Image.asset(Images.img_info_blue, width: 16, height: 16),
                         margin: EdgeInsets.only(left: 0, top: 4),
+                        child: Image.asset(Images.img_info_blue, width: 16, height: 16),
                       ),
                     ),
                   ),

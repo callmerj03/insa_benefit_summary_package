@@ -29,3 +29,54 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+
+
+# Flutter/Dart/Pub
+.packages
+.pub-cache/
+.pub/
+coverage/
+
+# Generated plugin registrant
+.generated_plugin_registrant.dart
+
+# Android
+android/.gradle/
+android/local.properties
+android/key.properties
+android/.idea/
+android/captures/
+
+# iOS
+ios/Flutter/.last_build_id
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+ios/Podfile.lock
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Runner.xcworkspace/
+ios/Runner.xcworkspace/contents.xcworkspacedata
+ios/Runner.xcworkspace/xcuserdata/
+ios/Runner.xcodeproj/xcuserdata/
+
+# Xcode
+*.xcuserstate
+*.xcscmblueprint
+*.xcworkspace/xcuserdata/
+*.xccheckout
+*.xcsettings
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Runner/GeneratedPluginRegistrant.swift
+macos/Pods/
+macos/Podfile.lock
+macos/.symlinks/
+
+# VS Code / Android Studio
+.vscode/
+
+# Misc
+*.lock
+
