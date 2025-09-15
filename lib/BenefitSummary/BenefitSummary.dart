@@ -80,6 +80,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   var mordernTreatmentSubLimits = ":modern-treatment-sublimits";
   var zoneAndCopayment = ":zoneAndCopayment";
   var cataractCoverage = ":cataractCoverage";
+  var rehabAndPainList = ":rehabAndPainList";
+  var maternityBenefits = ":maternityBenefits";
+  var wellnessProgram = ":wellnessProgram";
 
   @override
   void initState() {
@@ -115,6 +118,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   dynamic personalAccidentCoverList;
   dynamic? zoneAndCopaymentList = {};
   dynamic cataract_coverage_list;
+  dynamic rehab_and_pain_coverage_list;
+  dynamic maternity_benefits_table;
+  dynamic wellness_program_table;
 
   String moratoriumPeriod = "";
 
@@ -292,6 +298,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
         }
 
         cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
+        rehab_and_pain_coverage_list = hospitalObj["REHAB_AND_PAIN_COVERAGE_LIST"];
+        maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
+        wellness_program_table = hospitalObj["WELLNESS_PROGRAM_TABLE"];
 
         if (otherObj['ZONE_AND_COPAYMENT_LIST'] != null) {
           zoneAndCopaymentList = otherObj['ZONE_AND_COPAYMENT_LIST'];
@@ -981,15 +990,38 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: button(
-                      text:
-                          "${removeEndBrackets(texts[i]).replaceAll("<br>", '\n').replaceAll(cataractCoverage, "").replaceAll(zoneAndCopayment, "").replaceAll(zoneText, "").replaceAll(treatmentText, "").replaceAll(healthCheckUp, "").replaceAll(adultVaccination, "").replaceAll(childVaccination, "").replaceAll(paCoverage, "").replaceAll(waitingPeriodSubLimits, "").replaceAll(mordernTreatmentSubLimits, "").replaceAll(modernTreatmentList, "")}",
+                      text: removeEndBrackets(texts[i])
+                          .replaceAll("<br>", '\n')
+                          .replaceAll(cataractCoverage, "")
+                          .replaceAll(rehabAndPainList, "")
+                          .replaceAll(maternityBenefits, "")
+                          .replaceAll(wellnessProgram, "")
+                          .replaceAll(zoneAndCopayment, "")
+                          .replaceAll(zoneText, "")
+                          .replaceAll(treatmentText, "")
+                          .replaceAll(healthCheckUp, "")
+                          .replaceAll(adultVaccination, "")
+                          .replaceAll(childVaccination, "")
+                          .replaceAll(paCoverage, "")
+                          .replaceAll(waitingPeriodSubLimits, "")
+                          .replaceAll(mordernTreatmentSubLimits, "")
+                          .replaceAll(modernTreatmentList, ""),
                       click: () {
-                        if (removeBrackes(texts[i]).contains(cataractCoverage)) {
+                        if (removeBrackes(texts[i]).contains(rehabAndPainList)) {
+                          htmlViewBottomSheet(context: context, title: "Rehab And Pain List", data: rehab_and_pain_coverage_list);
+                        } else if (removeBrackes(texts[i]).contains(maternityBenefits)) {
+                          htmlViewBottomSheet(context: context, title: "Maternity Benefits", data: maternity_benefits_table);
+                        } else if (removeBrackes(texts[i]).contains(wellnessProgram)) {
+                          htmlViewBottomSheet(context: context, title: "Wellness Program", data: wellness_program_table);
+                        } else if (removeBrackes(texts[i]).contains(cataractCoverage)) {
                           htmlViewBottomSheet(context: context, title: "Cataract Coverage", data: cataract_coverage_list);
                         } else if (removeBrackes(texts[i]).contains(zoneAndCopayment)) {
-                          printF("<><><>< ${json.encode(zoneAndCopaymentList)}");
-                          final zoneAndCopaymentModel = ZoneAndCopaymentModel.fromJson(zoneAndCopaymentList);
-                          zoneAndCopaymentBottomSheet(context: context, title: "Zone And Co-Payment", data: zoneAndCopaymentModel);
+                          if (zoneAndCopayment is Map) {
+                            final zoneAndCopaymentModel = ZoneAndCopaymentModel.fromJson(zoneAndCopaymentList);
+                            zoneAndCopaymentBottomSheet(context: context, title: "Zone And Co-Payment", data: zoneAndCopaymentModel);
+                          } else {
+                            htmlViewBottomSheet(context: context, title: "Zone And Co-Payment", data: zoneAndCopaymentList);
+                          }
                         } else
                         // new key
                         // waiting period sub-limit
