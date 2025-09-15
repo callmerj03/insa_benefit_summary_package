@@ -110,8 +110,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
     }
   }
 
-  List<dynamic>? modernCoverage = [];
-  List<dynamic>? modernCoverageSubLimit = [];
+  dynamic modernCoverage = [];
+  dynamic modernCoverageSubLimit = [];
+
+  //
   List<dynamic>? listOfDisease = [];
   List<dynamic>? listOfZones = [];
   List<dynamic>? listOfTreatment = [];
@@ -1037,15 +1039,20 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                         } else if (removeBrackes(texts[i]).contains(mordernTreatmentSubLimits)) {
                           // new key
                           // modern treatment sub-limits
-                          subLimitTreatmentBottomSheet(
-                            context: context,
-                            flex: 2,
-                            title: "Sub-Limits (Modern Treatment Coverage)",
-                            selectedValue: "",
-                            data: modernCoverageSubLimit,
-                            showSearchBar: false,
-                            onSelect: (data) {},
-                          );
+                          String title = "Sub-Limits (Modern Treatment Coverage)";
+                          if (modernCoverageSubLimit is List) {
+                            subLimitTreatmentBottomSheet(
+                              context: context,
+                              flex: 2,
+                              title: title,
+                              selectedValue: "",
+                              data: modernCoverageSubLimit,
+                              showSearchBar: false,
+                              onSelect: (data) {},
+                            );
+                          } else {
+                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
+                          }
                         } else if (removeBrackes(texts[i]).contains(treatmentText)) {
                           subLimitBottomSheet(
                             context: context,
@@ -1056,15 +1063,20 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             onSelect: (data) {},
                           );
                         } else if (removeBrackes(texts[i]).contains("sub-limits")) {
-                          subLimitTreatmentBottomSheet(
-                            context: context,
-                            flex: 2,
-                            title: "Sub-Limits (Modern Treatment Coverage)",
-                            selectedValue: "",
-                            data: modernCoverageSubLimit,
-                            showSearchBar: false,
-                            onSelect: (data) {},
-                          );
+                          String title = "Sub-Limits (Modern Treatment Coverage)";
+                          if (modernCoverageSubLimit is List) {
+                            subLimitTreatmentBottomSheet(
+                              context: context,
+                              flex: 2,
+                              title: title,
+                              selectedValue: "",
+                              data: modernCoverageSubLimit,
+                              showSearchBar: false,
+                              onSelect: (data) {},
+                            );
+                          } else {
+                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
+                          }
                         } else if (removeBrackes(texts[i]).contains(zoneText)) {
                           subLimitZoneBottomSheet(
                             context: context,
@@ -1074,16 +1086,21 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             onSelect: (data) {},
                           );
                         } else if (removeBrackes(texts[i]).contains(modernTreatmentList)) {
-                          if ((modernCoverage ?? []).isNotEmpty) {
-                            infoDataBottomSheet(
-                              context: context,
-                              title: "Modern Treatment Coverage",
-                              data: modernCoverage,
-                              showSearchBar: false,
-                              onSelect: (data) {},
-                            );
+                          String title = "Modern Treatment Coverage";
+                          if (modernCoverage is List) {
+                            if ((modernCoverage ?? []).isNotEmpty) {
+                              infoDataBottomSheet(
+                                context: context,
+                                title: title,
+                                data: modernCoverage,
+                                showSearchBar: false,
+                                onSelect: (data) {},
+                              );
+                            } else {
+                              showToast("No data found");
+                            }
                           } else {
-                            showToast("No data found");
+                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
                           }
                         } else if (removeBrackes(texts[i]).contains(healthCheckUp)) {
                           htmlViewBottomSheet(context: context, title: "", data: healthCheckupTableDetailsOtherObj);
@@ -1142,7 +1159,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                     onSelect: (data) {},
                                   );
                                 }
-
                                 if (elementZero is Map) {
                                   paCoverageBottomSheet(
                                     context: context,
