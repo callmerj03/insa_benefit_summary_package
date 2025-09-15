@@ -1018,7 +1018,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                         } else if (removeBrackes(texts[i]).contains(cataractCoverage)) {
                           htmlViewBottomSheet(context: context, title: "Cataract Coverage", data: cataract_coverage_list);
                         } else if (removeBrackes(texts[i]).contains(zoneAndCopayment)) {
-                          if (zoneAndCopayment is Map) {
+                          if (zoneAndCopaymentList is Map) {
                             final zoneAndCopaymentModel = ZoneAndCopaymentModel.fromJson(zoneAndCopaymentList);
                             zoneAndCopaymentBottomSheet(context: context, title: "Zone And Co-Payment", data: zoneAndCopaymentModel);
                           } else {
@@ -1051,7 +1051,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                               onSelect: (data) {},
                             );
                           } else {
-                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
+                            htmlViewBottomSheet(context: context, title: title, data: modernCoverageSubLimit);
                           }
                         } else if (removeBrackes(texts[i]).contains(treatmentText)) {
                           subLimitBottomSheet(
@@ -1075,7 +1075,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                               onSelect: (data) {},
                             );
                           } else {
-                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
+                            htmlViewBottomSheet(context: context, title: title, data: modernCoverageSubLimit);
                           }
                         } else if (removeBrackes(texts[i]).contains(zoneText)) {
                           subLimitZoneBottomSheet(
@@ -1100,7 +1100,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                               showToast("No data found");
                             }
                           } else {
-                            htmlViewBottomSheet(context: context, title: title, data: healthCheckupTableDetailsOtherObj);
+                            htmlViewBottomSheet(context: context, title: title, data: modernCoverage);
                           }
                         } else if (removeBrackes(texts[i]).contains(healthCheckUp)) {
                           htmlViewBottomSheet(context: context, title: "", data: healthCheckupTableDetailsOtherObj);
