@@ -297,10 +297,27 @@ class _BenefitSummaryState extends State<BenefitSummary> {
           }
         }
 
-        cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
-        rehab_and_pain_coverage_list = hospitalObj["REHAB_AND_PAIN_COVERAGE_LIST"];
-        maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
-        wellness_program_table = hospitalObj["WELLNESS_PROGRAM_TABLE"];
+        //
+        if (hospitalObj['CATARACT_COVERAGE_LIST'] != null) {
+          cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
+        }
+
+
+
+        if (hospitalObj['MATERNITY_BENEFITS_TABLE'] != null) {
+          maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
+        }
+
+
+        //
+        if (otherObj['REHAB_AND_PAIN_COVERAGE_LIST'] != null) {
+          rehab_and_pain_coverage_list = otherObj["REHAB_AND_PAIN_COVERAGE_LIST"];
+        }
+
+        if (otherObj['WELLNESS_PROGRAM_TABLE'] != null) {
+          wellness_program_table = otherObj["WELLNESS_PROGRAM_TABLE"];
+        }
+
 
         if (otherObj['ZONE_AND_COPAYMENT_LIST'] != null) {
           zoneAndCopaymentList = otherObj['ZONE_AND_COPAYMENT_LIST'];
