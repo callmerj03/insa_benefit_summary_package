@@ -122,6 +122,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   dynamic rehab_and_pain_coverage_list;
   dynamic maternity_benefits_table;
   dynamic wellness_program_table;
+  dynamic newBornBabyListTable;
 
   String moratoriumPeriod = "";
 
@@ -317,6 +318,11 @@ class _BenefitSummaryState extends State<BenefitSummary> {
 
         if (otherObj['WELLNESS_PROGRAM_TABLE'] != null) {
           wellness_program_table = otherObj["WELLNESS_PROGRAM_TABLE"];
+        }
+
+
+        if (otherObj['NEW_BORN_BABY_COVERAGE_LIST'] != null) {
+          newBornBabyListTable = otherObj["NEW_BORN_BABY_COVERAGE_LIST"];
         }
 
 
@@ -1033,7 +1039,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                         } else if (removeBrackes(texts[i]).contains(wellnessProgram)) {
                           htmlViewBottomSheet(context: context, title: "Wellness Program", data: wellness_program_table);
                         } else if (removeBrackes(texts[i]).contains(newBornBabyList)) {
-                          htmlViewBottomSheet(context: context, title: "New Born Baby Coverage", data: wellness_program_table);
+                          htmlViewBottomSheet(context: context, title: "New Born Baby Coverage", data: newBornBabyListTable);
                         } else if (removeBrackes(texts[i]).contains(cataractCoverage)) {
                           htmlViewBottomSheet(context: context, title: "Cataract Coverage", data: cataract_coverage_list);
                         } else if (removeBrackes(texts[i]).contains(zoneAndCopayment)) {
