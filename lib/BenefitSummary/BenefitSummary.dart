@@ -81,6 +81,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   var rehabAndPainList = ":rehabAndPainList";
   var maternityBenefits = ":maternityBenefits";
   var wellnessProgram = ":wellnessProgram";
+  var newBornBabyList = ":newBornBabyList";
 
   @override
   void initState() {
@@ -1013,6 +1014,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                           .replaceAll(rehabAndPainList, "")
                           .replaceAll(maternityBenefits, "")
                           .replaceAll(wellnessProgram, "")
+                          .replaceAll(newBornBabyList, "")
                           .replaceAll(zoneAndCopayment, "")
                           .replaceAll(zoneText, "")
                           .replaceAll(treatmentText, "")
@@ -1030,6 +1032,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                           htmlViewBottomSheet(context: context, title: "Maternity Benefits", data: maternity_benefits_table);
                         } else if (removeBrackes(texts[i]).contains(wellnessProgram)) {
                           htmlViewBottomSheet(context: context, title: "Wellness Program", data: wellness_program_table);
+                        } else if (removeBrackes(texts[i]).contains(newBornBabyList)) {
+                          htmlViewBottomSheet(context: context, title: "New Born Baby Coverage", data: wellness_program_table);
                         } else if (removeBrackes(texts[i]).contains(cataractCoverage)) {
                           htmlViewBottomSheet(context: context, title: "Cataract Coverage", data: cataract_coverage_list);
                         } else if (removeBrackes(texts[i]).contains(zoneAndCopayment)) {
