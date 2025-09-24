@@ -39,6 +39,7 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/svg/
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package

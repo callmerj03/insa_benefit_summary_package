@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -304,12 +303,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
           cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
         }
 
-
-
         if (hospitalObj['MATERNITY_BENEFITS_TABLE'] != null) {
           maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
         }
-
 
         //
         if (otherObj['REHAB_AND_PAIN_COVERAGE_LIST'] != null) {
@@ -320,11 +316,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
           wellness_program_table = otherObj["WELLNESS_PROGRAM_TABLE"];
         }
 
-
         if (otherObj['NEW_BORN_BABY_COVERAGE_LIST'] != null) {
           newBornBabyListTable = otherObj["NEW_BORN_BABY_COVERAGE_LIST"];
         }
-
 
         if (otherObj['ZONE_AND_COPAYMENT_LIST'] != null) {
           zoneAndCopaymentList = otherObj['ZONE_AND_COPAYMENT_LIST'];
