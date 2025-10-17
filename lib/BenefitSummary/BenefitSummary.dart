@@ -602,20 +602,30 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                           : null,
                                                   color: getColor(selectedCard: selectedCard).withOpacity(0.4),
                                                 ),
-                                                child: Image.asset(
-                                                  selectedCard == exclusion ? Images.img_cancel : Images.greenTickPng,
-                                                  width: selectedCard == exclusion ? 14 : 16,
-                                                  color: getColorDark(selectedCard: selectedCard),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                    top: index == 0 ? 12 : 0,
+                                                  ),
+                                                  child: Image.asset(
+                                                    selectedCard == exclusion ? Images.img_cancel : Images.greenTickPng,
+                                                    width: selectedCard == exclusion ? 14 : 16,
+                                                    color: getColorDark(selectedCard: selectedCard),
+                                                  ),
                                                 ),
                                               ),
                                               WidthSpace(width: 16),
                                               Expanded(
                                                 child: Align(
                                                   alignment: Alignment.centerLeft,
-                                                  child: beneFitText(
-                                                      texts: contentTexts,
-                                                      selectedCard: selectedCard,
-                                                      table_data: table_data),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                      top: index == 0 ? 12 : 0,
+                                                    ),
+                                                    child: beneFitText(
+                                                        texts: contentTexts,
+                                                        selectedCard: selectedCard,
+                                                        table_data: table_data),
+                                                  ),
                                                 ),
                                               ),
                                               WidthSpace(width: 8),
@@ -1044,7 +1054,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                           .replaceAll(mordernTreatmentSubLimits, "")
                           .replaceAll(modernTreatmentList, ""),
                       click: () {
-
                         //
                         if ((table_data ?? "").isNotEmpty) {
                           htmlViewBottomSheet(context: context, title: "", data: table_data);
@@ -1276,8 +1285,6 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                         // }
 
                         //.....
-
-
                       },
                       selectedCard: selectedCard,
                     ),
@@ -1291,7 +1298,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                 .copyWith(fontSize: 17, color: AppColors().brown, decoration: TextDecoration.underline)
                             : textstyle.bodyText1
                                 .copyWith(fontSize: 15, color: AppColors().brown, decoration: TextDecoration.underline)
-                        : texts[i].contains("${removeBrackes(tag1End)}")
+                        : texts[i].contains(removeBrackes(tag1End))
                             ? isHeader == true
                                 ? textstyle.heading3.copyWith(fontSize: 17)
                                 : textstyle.bodyText1Bold.copyWith(fontSize: 15)
