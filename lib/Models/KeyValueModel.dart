@@ -6,12 +6,21 @@ class KeyValueModel {
   String? _disclaimer;
   String? _value2;
   String? _value3;
+  String? _table_data;
   bool? _isSelected;
   bool _isAddOn = false;
 
   KeyValueModel(this._key, this._value, this._isSelected);
 
-  KeyValueModel.withTooltip(this._key, this._value, this._disclaimer, this._isSelected, this._tooltip, this._isAddOn);
+  KeyValueModel.withTooltip(
+    this._key,
+    this._value,
+    this._disclaimer,
+    this._isSelected,
+    this._tooltip,
+    this._isAddOn,
+    this._table_data,
+  );
 
   KeyValueModel.novalue();
 
@@ -67,5 +76,11 @@ class KeyValueModel {
 
   set isAddOn(bool value) {
     _isAddOn = value;
+  }
+
+  String? get table_data => _table_data;
+
+  set table_data(String? value) {
+    _table_data = value;
   }
 }

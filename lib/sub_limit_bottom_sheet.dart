@@ -13,12 +13,12 @@ import 'package:dotted_line/dotted_line.dart';
 
 Future subLimitBottomSheet(
     {required BuildContext context,
-      required List<dynamic?>? data,
-      void Function(String)? onSelect,
-      String? title,
-      dynamic selectedValue,
-      Widget? titleBar,
-      bool showSearchBar = false}) {
+    required List<dynamic?>? data,
+    void Function(String)? onSelect,
+    String? title,
+    dynamic selectedValue,
+    Widget? titleBar,
+    bool showSearchBar = false}) {
   final width = MediaQuery.of(context).size.width;
   final textStyle = PolifyxTextStyles();
   TextEditingController textEditingController = TextEditingController();
@@ -89,8 +89,9 @@ Future subLimitBottomSheet(
                         hint: "Search",
                         onChanged: (searched) {
                           if (searched.isNotEmpty) {
-                            var searchData =
-                            copiedData.where((element) => element.toString().toLowerCase().contains("${searched}")).toList();
+                            var searchData = copiedData
+                                .where((element) => element.toString().toLowerCase().contains("${searched}"))
+                                .toList();
                             if (searchData.length > 0) {
                               data = searchData;
                             } else {
@@ -140,54 +141,55 @@ Future subLimitBottomSheet(
                       ),
                   data!.isNotEmpty
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: ListView.separated(
-                          itemCount: data?.length ?? 0,
-                          separatorBuilder: (context, index) {
-                            return DottedLine(
-                              dashColor: Colors.grey.withOpacity(0.5),
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            var item = data![index];
-                            return IntrinsicHeight(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  WidthSpace(width: 16),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(vertical: 8),
-                                      child: Text("${item['treatment']}"),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                                    child: CustomPaint(painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 8),
-                                          decoration: BoxDecoration(
-                                            color: AppColors().light_green5,
-                                            borderRadius: BorderRadius.circular(4),
-                                            border: Border.all(
-                                              color: AppColors().green2,
-                                            ),
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: ListView.separated(
+                                itemCount: data?.length ?? 0,
+                                separatorBuilder: (context, index) {
+                                  return DottedLine(
+                                    dashColor: Colors.grey.withOpacity(0.5),
+                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  var item = data![index];
+                                  return IntrinsicHeight(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        WidthSpace(width: 16),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            margin: const EdgeInsets.symmetric(vertical: 8),
+                                            child: Text("${item['treatment']}"),
                                           ),
-                                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                          child: Center(child: Text("${item['coverage']}")))),
-                                  WidthSpace(width: 16)
-                                ],
-                              ),
-                            );
-                          }),
-                    ),
-                  )
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                          child: CustomPaint(
+                                              painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
+                                        ),
+                                        Expanded(
+                                            child: Container(
+                                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors().light_green5,
+                                                  borderRadius: BorderRadius.circular(4),
+                                                  border: Border.all(
+                                                    color: AppColors().green2,
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                child: Center(child: Text("${item['coverage']}")))),
+                                        WidthSpace(width: 16)
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -229,7 +231,7 @@ Future subLimitZoneBottomSheet({
 
   List<List<dynamic>> transposedWithAlphabets = List.generate(
     listOfZones[0].length,
-        (i) => [
+    (i) => [
       "Zone " + String.fromCharCode('A'.codeUnitAt(0) + i),
       for (var row in listOfZones) row[i],
     ],
@@ -291,99 +293,102 @@ Future subLimitZoneBottomSheet({
                         ),
                         child: Row(
                             children: List.generate(
-                              list!.length,
-                                  (i) {
-                                return Expanded(
-                                  child: IntrinsicHeight(
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            child: Text(
-                                              i == 0 ? "${list[i]}" : "Rs. ${converter.convertAmountToWords2(double.parse(list[i]))}",
-                                              style: textStyle.bodyText1Bold.copyWith(fontSize: 12),
-                                              textAlign: i == 0 ? TextAlign.left : TextAlign.center,
-                                            ),
-                                            padding: EdgeInsets.only(left: i == 0 ? 8 : 0),
-                                          ),
+                          list!.length,
+                          (i) {
+                            return Expanded(
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        child: Text(
+                                          i == 0
+                                              ? "${list[i]}"
+                                              : "Rs. ${converter.convertAmountToWords2(double.parse(list[i]))}",
+                                          style: textStyle.bodyText1Bold.copyWith(fontSize: 12),
+                                          textAlign: i == 0 ? TextAlign.left : TextAlign.center,
                                         ),
-                                        if (i != (list.length - 1))
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                                            child: CustomPaint(
-                                                painter: DashedLineVerticalPainter(dashColor: Color(0xffF0F4FD)),
-                                                size: Size(1, double.infinity)),
-                                          ),
-                                      ],
+                                        padding: EdgeInsets.only(left: i == 0 ? 8 : 0),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            )),
+                                    if (i != (list.length - 1))
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: CustomPaint(
+                                            painter: DashedLineVerticalPainter(dashColor: Color(0xffF0F4FD)),
+                                            size: Size(1, double.infinity)),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )),
                       ),
                   transposedWithAlphabets.isNotEmpty
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(left: 16, right: 16),
-                          itemCount: transposedWithAlphabets.length ?? 0,
-                          itemBuilder: (context, index) {
-                            var item = transposedWithAlphabets[index];
-                            return IntrinsicHeight(
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: List.generate(
-                                            item.length,
-                                                (i) {
-                                              return Expanded(
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Container(
-                                                        margin: const EdgeInsets.symmetric(vertical: 24),
-                                                        child: i == 0
-                                                            ? Row(
-                                                          children: [
-                                                            Container(
-                                                              color: AppColors().primaryThemeColor,
-                                                              height: 10,
-                                                              width: 10,
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: ListView.builder(
+                                padding: EdgeInsets.only(left: 16, right: 16),
+                                itemCount: transposedWithAlphabets.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  var item = transposedWithAlphabets[index];
+                                  return IntrinsicHeight(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                            child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: List.generate(
+                                                  item.length,
+                                                  (i) {
+                                                    return Expanded(
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Container(
+                                                              margin: const EdgeInsets.symmetric(vertical: 24),
+                                                              child: i == 0
+                                                                  ? Row(
+                                                                      children: [
+                                                                        Container(
+                                                                          color: AppColors().primaryThemeColor,
+                                                                          height: 10,
+                                                                          width: 10,
+                                                                        ),
+                                                                        WidthSpace(width: 8),
+                                                                        Text("${item[i] ?? "-"}"),
+                                                                      ],
+                                                                    )
+                                                                  : Text(item[i] == null
+                                                                      ? "-"
+                                                                      : "Rs. "
+                                                                          "${item[i]}"),
                                                             ),
-                                                            WidthSpace(width: 8),
-                                                            Text("${item[i] ?? "-"}"),
-                                                          ],
-                                                        )
-                                                            : Text(item[i] == null
-                                                            ? "-"
-                                                            : "Rs. "
-                                                            "${item[i]}"),
+                                                          ),
+                                                          if (i != (item.length - 1))
+                                                            Padding(
+                                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                              child: CustomPaint(
+                                                                  painter: DashedLineVerticalPainter(),
+                                                                  size: Size(1, double.infinity)),
+                                                            ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    if (i != (item.length - 1))
-                                                      Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                                                        child: CustomPaint(
-                                                            painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
-                                                      ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ))),
-                                  DottedLine(
-                                    dashColor: Colors.grey.withOpacity(0.5),
-                                  )
-                                ],
-                              ),
-                            );
-                          }),
-                    ),
-                  )
+                                                    );
+                                                  },
+                                                ))),
+                                        DottedLine(
+                                          dashColor: Colors.grey.withOpacity(0.5),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -459,188 +464,198 @@ Future namedAilmentListBottomSheet({
 
                   (data ?? []).isNotEmpty
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: SingleChildScrollView(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              border: Border.all(color: AppColors().color_skin2, width: 2)),
-                          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                          child: ListView.builder(
-                              itemCount: (data ?? []).length ?? 0,
-                              physics: NeverScrollableScrollPhysics(),
-                              padding: EdgeInsets.zero,
-                              primary: true,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                var item = data![index];
-                                return Container(
-                                  decoration: BoxDecoration(
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: SingleChildScrollView(
+                              child: Container(
+                                decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      if (index == 0)
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  "Duration",
-                                                  style: textStyle.heading4.copyWith(fontSize: 18),
-                                                ),
-                                                flex: 2,
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  "List",
-                                                  style: textStyle.heading4.copyWith(fontSize: 18),
-                                                ),
-                                                flex: 3,
-                                              ),
-                                            ],
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: AppColors().color_skin2,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(16),
-                                              topRight: Radius.circular(16),
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
+                                    border: Border.all(color: AppColors().color_skin2, width: 2)),
+                                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                                child: ListView.builder(
+                                    itemCount: (data ?? []).length ?? 0,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    primary: true,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      var item = data![index];
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
                                         ),
-
-                                      //
-                                      IntrinsicHeight(
-                                        child: Row(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            //
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                child: Text("${item["duration"]}", style: textStyle.heading4.copyWith(fontSize: 14)),
+                                            if (index == 0)
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Duration",
+                                                        style: textStyle.heading4.copyWith(fontSize: 18),
+                                                      ),
+                                                      flex: 2,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "List",
+                                                        style: textStyle.heading4.copyWith(fontSize: 18),
+                                                      ),
+                                                      flex: 3,
+                                                    ),
+                                                  ],
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors().color_skin2,
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(16),
+                                                    topRight: Radius.circular(16),
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
                                               ),
-                                              flex: 2,
-                                            ),
-
-                                            // vertical line
-                                            Container(
-                                              width: 2,
-                                              color: AppColors().color_skin2,
-                                              // margin: const EdgeInsets.symmetric(horizontal: 8),
-                                            ),
 
                                             //
-                                            Expanded(
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: (item["list"] as List).map<Widget>((listItem) {
-                                                    String text = listItem.toString();
+                                            IntrinsicHeight(
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  //
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                                      child: Text("${item["duration"]}",
+                                                          style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                    ),
+                                                    flex: 2,
+                                                  ),
 
-                                                    if (text.contains("\n*")) {
-                                                      // Split by "\n*" and remove empty strings
-                                                      List<String> parts =
-                                                      text.split("\n*").map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+                                                  // vertical line
+                                                  Container(
+                                                    width: 2,
+                                                    color: AppColors().color_skin2,
+                                                    // margin: const EdgeInsets.symmetric(horizontal: 8),
+                                                  ),
 
-                                                      return Padding(
-                                                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Row(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Text(
-                                                                  "• ",
-                                                                  style: textStyle.heading4
-                                                                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    parts.first, // Main heading before first bullet
-                                                                    style: textStyle.heading4
-                                                                        .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+                                                  //
+                                                  Expanded(
+                                                    child: Container(
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: (item["list"] as List).map<Widget>((listItem) {
+                                                          String text = listItem.toString();
+
+                                                          if (text.contains("\n*")) {
+                                                            // Split by "\n*" and remove empty strings
+                                                            List<String> parts = text
+                                                                .split("\n*")
+                                                                .map((e) => e.trim())
+                                                                .where((e) => e.isNotEmpty)
+                                                                .toList();
+
+                                                            return Padding(
+                                                              padding: const EdgeInsets.symmetric(
+                                                                  vertical: 4, horizontal: 4),
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Row(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Text(
+                                                                        "• ",
+                                                                        style: textStyle.heading4.copyWith(
+                                                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      Expanded(
+                                                                        child: Text(
+                                                                          parts
+                                                                              .first, // Main heading before first bullet
+                                                                          style: textStyle.heading4.copyWith(
+                                                                              fontSize: 14,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            ...parts.skip(1).map((subItem) => Padding(
-                                                              padding: const EdgeInsets.only(left: 12, top: 2),
+                                                                  ...parts.skip(1).map((subItem) => Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.only(left: 12, top: 2),
+                                                                        child: Row(
+                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            const Text("• "),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                subItem,
+                                                                                style: textStyle.bodyText1
+                                                                                    .copyWith(fontSize: 14),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            // Normal single-line item
+                                                            return Padding(
+                                                              padding: const EdgeInsets.symmetric(
+                                                                  vertical: 4, horizontal: 4),
                                                               child: Row(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
-                                                                  const Text("• "),
+                                                                  Text(
+                                                                    "• ",
+                                                                    style: textStyle.heading4.copyWith(
+                                                                        fontSize: 14, fontWeight: FontWeight.bold),
+                                                                  ),
                                                                   Expanded(
                                                                     child: Text(
-                                                                      subItem,
-                                                                      style: textStyle.bodyText1.copyWith(fontSize: 14),
+                                                                      text,
+                                                                      style: textStyle.heading4.copyWith(
+                                                                          fontSize: 14, fontWeight: FontWeight.bold),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                            )),
-                                                          ],
+                                                            );
+                                                          }
+                                                        }).toList(),
+                                                      ),
+                                                      padding: EdgeInsets.only(left: 8),
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors().light_yellow4,
+                                                        borderRadius: BorderRadius.only(
+                                                          bottomRight: Radius.circular(16),
+                                                          bottomLeft: Radius.circular(16),
                                                         ),
-                                                      );
-                                                    } else {
-                                                      // Normal single-line item
-                                                      return Padding(
-                                                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                                                        child: Row(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Text(
-                                                              "• ",
-                                                              style: textStyle.heading4
-                                                                  .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                                                            ),
-                                                            Expanded(
-                                                              child: Text(
-                                                                text,
-                                                                style: textStyle.heading4
-                                                                    .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    }
-                                                  }).toList(),
-                                                ),
-                                                padding: EdgeInsets.only(left: 8),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors().light_yellow4,
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomRight: Radius.circular(16),
-                                                    bottomLeft: Radius.circular(16),
+                                                      ),
+                                                    ),
+                                                    flex: 3,
                                                   ),
-                                                ),
+                                                ],
                                               ),
-                                              flex: 3,
                                             ),
+
+                                            if (index < data.length - 1)
+                                              Container(
+                                                width: double.infinity,
+                                                color: AppColors().color_skin2,
+                                                height: 2,
+                                              ),
                                           ],
                                         ),
-                                      ),
-
-                                      if (index < data.length - 1)
-                                        Container(
-                                          width: double.infinity,
-                                          color: AppColors().color_skin2,
-                                          height: 2,
-                                        ),
-                                    ],
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ),
-                  )
+                                      );
+                                    }),
+                              ),
+                            ),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -717,107 +732,108 @@ Future paCoverageBottomSheet({
 
                   (data ?? []).isNotEmpty
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: SingleChildScrollView(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              border: Border.all(color: AppColors().color_skin2, width: 2)),
-                          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                          child: ListView.builder(
-                              itemCount: (data ?? []).length ?? 0,
-                              physics: NeverScrollableScrollPhysics(),
-                              padding: EdgeInsets.zero,
-                              primary: true,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                var item = data![index];
-                                return Container(
-                                  decoration: BoxDecoration(
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: SingleChildScrollView(
+                              child: Container(
+                                decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      if (index == 0)
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  "Coverage",
-                                                  style: textStyle.heading4.copyWith(fontSize: 18),
-                                                ),
-                                                flex: 2,
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  "Insured Events",
-                                                  style: textStyle.heading4.copyWith(fontSize: 18),
-                                                ),
-                                                flex: 3,
-                                              ),
-                                            ],
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: AppColors().color_skin2,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(16),
-                                              topRight: Radius.circular(16),
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
+                                    border: Border.all(color: AppColors().color_skin2, width: 2)),
+                                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                                child: ListView.builder(
+                                    itemCount: (data ?? []).length ?? 0,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    primary: true,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      var item = data![index];
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
                                         ),
-
-                                      //
-                                      IntrinsicHeight(
-                                        child: Row(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
+                                            if (index == 0)
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Coverage",
+                                                        style: textStyle.heading4.copyWith(fontSize: 18),
+                                                      ),
+                                                      flex: 2,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Insured Events",
+                                                        style: textStyle.heading4.copyWith(fontSize: 18),
+                                                      ),
+                                                      flex: 3,
+                                                    ),
+                                                  ],
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors().color_skin2,
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(16),
+                                                    topRight: Radius.circular(16),
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
+                                              ),
+
                                             //
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                child: Text("${item["coverage"]}", style: textStyle.heading4.copyWith(fontSize: 14)),
+                                            IntrinsicHeight(
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  //
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                                      child: Text("${item["coverage"]}",
+                                                          style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                    ),
+                                                    flex: 2,
+                                                  ),
+
+                                                  // vertical line
+                                                  Container(
+                                                    width: 2,
+                                                    color: AppColors().color_skin2,
+                                                    // margin: const EdgeInsets.symmetric(horizontal: 8),
+                                                  ),
+
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                                      child: Text("${item["insuredEventsValue"]}",
+                                                          style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                    ),
+                                                    flex: 3,
+                                                  ),
+                                                ],
                                               ),
-                                              flex: 2,
                                             ),
 
-                                            // vertical line
-                                            Container(
-                                              width: 2,
-                                              color: AppColors().color_skin2,
-                                              // margin: const EdgeInsets.symmetric(horizontal: 8),
-                                            ),
-
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                child: Text("${item["insuredEventsValue"]}",
-                                                    style: textStyle.heading4.copyWith(fontSize: 14)),
+                                            if (index < data.length - 1)
+                                              Container(
+                                                width: double.infinity,
+                                                color: AppColors().color_skin2,
+                                                height: 2,
                                               ),
-                                              flex: 3,
-                                            ),
                                           ],
                                         ),
-                                      ),
-
-                                      if (index < data.length - 1)
-                                        Container(
-                                          width: double.infinity,
-                                          color: AppColors().color_skin2,
-                                          height: 2,
-                                        ),
-                                    ],
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
-                    ),
-                  )
+                                      );
+                                    }),
+                              ),
+                            ),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -888,285 +904,297 @@ Future zoneAndCopaymentBottomSheet({
 
                   (data != null)
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            //
-                            if ((data.zones ?? []).isNotEmpty)
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    border: Border.all(color: AppColors().color_skin2, width: 2)),
-                                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                                child: ListView.builder(
-                                    itemCount: data.zones?.length ?? 0,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    padding: EdgeInsets.zero,
-                                    primary: true,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      //
-                                      var zone = data.zones![index];
-
-                                      return Container(
-                                        decoration: BoxDecoration(
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  //
+                                  if ((data.zones ?? []).isNotEmpty)
+                                    Container(
+                                      decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            if (index == 0)
-                                              Container(
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        "Zone",
-                                                        style: textStyle.heading4.copyWith(fontSize: 18),
-                                                      ),
-                                                      flex: 2,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                        "States",
-                                                        style: textStyle.heading4.copyWith(fontSize: 18),
-                                                      ),
-                                                      flex: 4,
-                                                    ),
-                                                  ],
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors().color_skin2,
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(16),
-                                                    topRight: Radius.circular(16),
-                                                  ),
-                                                ),
-                                                padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
-                                              ),
-
+                                          border: Border.all(color: AppColors().color_skin2, width: 2)),
+                                      margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                                      child: ListView.builder(
+                                          itemCount: data.zones?.length ?? 0,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          padding: EdgeInsets.zero,
+                                          primary: true,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
                                             //
-                                            IntrinsicHeight(
-                                              child: Row(
+                                            var zone = data.zones![index];
+
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                              ),
+                                              child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  //
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                      child: Text("${zone.zone}", style: textStyle.heading4.copyWith(fontSize: 14)),
-                                                    ),
-                                                    flex: 2,
-                                                  ),
-
-                                                  // vertical line
-                                                  Container(
-                                                    width: 2,
-                                                    color: AppColors().color_skin2,
-                                                    // margin: const EdgeInsets.symmetric(horizontal: 8),
-                                                  ),
-
-                                                  Expanded(
-                                                    child: Container(
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                  if (index == 0)
+                                                    Container(
+                                                      child: Row(
                                                         children: [
-                                                          //
-                                                          Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                            child: Text("${zone.states}",
-                                                                style: textStyle.heading4.copyWith(fontSize: 14)),
-                                                          ),
-
-                                                          //
-                                                          if (zone.note != null)
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColors().light_grey8,
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                                                                  border: Border.all(color: AppColors().light_grey8, width: 1.5)),
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                                                                  color: AppColors().pure_white,
-                                                                ),
-                                                                margin: EdgeInsets.only(left: 8),
-                                                                padding: EdgeInsets.all(4),
-                                                                child: Text(
-                                                                  zone.note ?? "",
-                                                                  style: textStyle.subHeading2.copyWith(fontSize: 12),
-                                                                ),
-                                                              ),
-                                                              width: double.infinity,
-                                                              margin: EdgeInsets.only(left: 8),
+                                                          Expanded(
+                                                            child: Text(
+                                                              "Zone",
+                                                              style: textStyle.heading4.copyWith(fontSize: 18),
                                                             ),
+                                                            flex: 2,
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              "States",
+                                                              style: textStyle.heading4.copyWith(fontSize: 18),
+                                                            ),
+                                                            flex: 4,
+                                                          ),
                                                         ],
                                                       ),
-                                                      height: double.infinity,
                                                       decoration: BoxDecoration(
-                                                        color: AppColors().light_yellow4,
+                                                        color: AppColors().color_skin2,
                                                         borderRadius: BorderRadius.only(
-                                                          bottomRight: Radius.circular(16),
-                                                          bottomLeft: Radius.circular(16),
+                                                          topLeft: Radius.circular(16),
+                                                          topRight: Radius.circular(16),
                                                         ),
                                                       ),
+                                                      padding:
+                                                          EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
                                                     ),
-                                                    flex: 4,
+
+                                                  //
+                                                  IntrinsicHeight(
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        //
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                                            child: Text("${zone.zone}",
+                                                                style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                          ),
+                                                          flex: 2,
+                                                        ),
+
+                                                        // vertical line
+                                                        Container(
+                                                          width: 2,
+                                                          color: AppColors().color_skin2,
+                                                          // margin: const EdgeInsets.symmetric(horizontal: 8),
+                                                        ),
+
+                                                        Expanded(
+                                                          child: Container(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                //
+                                                                Padding(
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                      vertical: 4, horizontal: 8),
+                                                                  child: Text("${zone.states}",
+                                                                      style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                                ),
+
+                                                                //
+                                                                if (zone.note != null)
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                        color: AppColors().light_grey8,
+                                                                        borderRadius: BorderRadius.only(
+                                                                            topLeft: Radius.circular(8),
+                                                                            topRight: Radius.circular(8)),
+                                                                        border: Border.all(
+                                                                            color: AppColors().light_grey8,
+                                                                            width: 1.5)),
+                                                                    child: Container(
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.only(
+                                                                            topLeft: Radius.circular(8),
+                                                                            topRight: Radius.circular(8)),
+                                                                        color: AppColors().pure_white,
+                                                                      ),
+                                                                      margin: EdgeInsets.only(left: 8),
+                                                                      padding: EdgeInsets.all(4),
+                                                                      child: Text(
+                                                                        zone.note ?? "",
+                                                                        style: textStyle.subHeading2
+                                                                            .copyWith(fontSize: 12),
+                                                                      ),
+                                                                    ),
+                                                                    width: double.infinity,
+                                                                    margin: EdgeInsets.only(left: 8),
+                                                                  ),
+                                                              ],
+                                                            ),
+                                                            height: double.infinity,
+                                                            decoration: BoxDecoration(
+                                                              color: AppColors().light_yellow4,
+                                                              borderRadius: BorderRadius.only(
+                                                                bottomRight: Radius.circular(16),
+                                                                bottomLeft: Radius.circular(16),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          flex: 4,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
+
+                                                  if (index < (data.zones ?? []).length - 1)
+                                                    Container(
+                                                      width: double.infinity,
+                                                      color: AppColors().color_skin2,
+                                                      height: 2,
+                                                    ),
                                                 ],
                                               ),
-                                            ),
+                                            );
+                                          }),
+                                    ),
 
-                                            if (index < (data.zones ?? []).length - 1)
-                                              Container(
-                                                width: double.infinity,
-                                                color: AppColors().color_skin2,
-                                                height: 2,
-                                              ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
-                              ),
+                                  //
 
-                            //
-
-                            if ((data.coPaymentRules ?? []).isNotEmpty)
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    border: Border.all(color: AppColors().color_skin2, width: 2)),
-                                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                                child: ListView.builder(
-                                    itemCount: data.coPaymentRules?.length ?? 0,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    padding: EdgeInsets.zero,
-                                    primary: true,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      //
-                                      var coPaymentRule = data.coPaymentRules![index];
-
-                                      return Container(
-                                        decoration: BoxDecoration(
+                                  if ((data.coPaymentRules ?? []).isNotEmpty)
+                                    Container(
+                                      decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            if (index == 0)
-                                              Container(
-                                                child: Center(
-                                                  child: Text(
-                                                    "Co-Payment",
-                                                    style: textStyle.heading4.copyWith(fontSize: 18),
-                                                  ),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors().color_skin2,
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(16),
-                                                    topRight: Radius.circular(16),
-                                                  ),
-                                                ),
-                                                padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
-                                              ),
-                                            // Container(
-                                            //   child: Row(
-                                            //     children: [
-                                            //       Expanded(
-                                            //         child: Text(
-                                            //           "Zone",
-                                            //           style: textStyle.heading4.copyWith(fontSize: 18),
-                                            //         ),
-                                            //         flex: 2,
-                                            //       ),
-                                            //       Expanded(
-                                            //         child: Text(
-                                            //           "Copayment",
-                                            //           style: textStyle.heading4.copyWith(fontSize: 18),
-                                            //         ),
-                                            //         flex: 3,
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            //   decoration: BoxDecoration(
-                                            //     color: AppColors().color_skin2,
-                                            //     borderRadius: BorderRadius.only(
-                                            //       topLeft: Radius.circular(16),
-                                            //       topRight: Radius.circular(16),
-                                            //     ),
-                                            //   ),
-                                            //   padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
-                                            // ),
-
+                                          border: Border.all(color: AppColors().color_skin2, width: 2)),
+                                      margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                                      child: ListView.builder(
+                                          itemCount: data.coPaymentRules?.length ?? 0,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          padding: EdgeInsets.zero,
+                                          primary: true,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
                                             //
-                                            IntrinsicHeight(
-                                              child: Row(
+                                            var coPaymentRule = data.coPaymentRules![index];
+
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                              ),
+                                              child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  //
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                      child: Text("${coPaymentRule.insuredPaying}",
-                                                          style: textStyle.heading4.copyWith(fontSize: 14)),
-                                                    ),
-                                                    flex: 2,
-                                                  ),
-
-                                                  // vertical line
-                                                  Container(
-                                                    width: 1,
-                                                    color: AppColors().color_skin2,
-                                                    // margin: const EdgeInsets.symmetric(horizontal: 8),
-                                                  ),
-
-                                                  Expanded(
-                                                    child: Container(
-                                                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                                        height: double.infinity,
-                                                        decoration: BoxDecoration(
-                                                          color: AppColors().light_yellow4,
-                                                          borderRadius: BorderRadius.only(
-                                                            bottomRight: Radius.circular(16),
-                                                            bottomLeft: Radius.circular(16),
-                                                          ),
+                                                  if (index == 0)
+                                                    Container(
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Co-Payment",
+                                                          style: textStyle.heading4.copyWith(fontSize: 18),
                                                         ),
-                                                        child: HtmlWidget(
-                                                          coPaymentRule.copaymentRules ?? '',
-                                                          renderMode: RenderMode.column,
-                                                          enableCaching: true,
-                                                          textStyle:
-                                                          textStyle.heading4.copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                                                        )),
-                                                    flex: 4,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors().color_skin2,
+                                                        borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(16),
+                                                          topRight: Radius.circular(16),
+                                                        ),
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
+                                                    ),
+                                                  // Container(
+                                                  //   child: Row(
+                                                  //     children: [
+                                                  //       Expanded(
+                                                  //         child: Text(
+                                                  //           "Zone",
+                                                  //           style: textStyle.heading4.copyWith(fontSize: 18),
+                                                  //         ),
+                                                  //         flex: 2,
+                                                  //       ),
+                                                  //       Expanded(
+                                                  //         child: Text(
+                                                  //           "Copayment",
+                                                  //           style: textStyle.heading4.copyWith(fontSize: 18),
+                                                  //         ),
+                                                  //         flex: 3,
+                                                  //       ),
+                                                  //     ],
+                                                  //   ),
+                                                  //   decoration: BoxDecoration(
+                                                  //     color: AppColors().color_skin2,
+                                                  //     borderRadius: BorderRadius.only(
+                                                  //       topLeft: Radius.circular(16),
+                                                  //       topRight: Radius.circular(16),
+                                                  //     ),
+                                                  //   ),
+                                                  //   padding: EdgeInsets.symmetric(horizontal: 16 / 2, vertical: 16 - 2),
+                                                  // ),
+
+                                                  //
+                                                  IntrinsicHeight(
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        //
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                                            child: Text("${coPaymentRule.insuredPaying}",
+                                                                style: textStyle.heading4.copyWith(fontSize: 14)),
+                                                          ),
+                                                          flex: 2,
+                                                        ),
+
+                                                        // vertical line
+                                                        Container(
+                                                          width: 1,
+                                                          color: AppColors().color_skin2,
+                                                          // margin: const EdgeInsets.symmetric(horizontal: 8),
+                                                        ),
+
+                                                        Expanded(
+                                                          child: Container(
+                                                              padding: const EdgeInsets.symmetric(
+                                                                  vertical: 4, horizontal: 8),
+                                                              height: double.infinity,
+                                                              decoration: BoxDecoration(
+                                                                color: AppColors().light_yellow4,
+                                                                borderRadius: BorderRadius.only(
+                                                                  bottomRight: Radius.circular(16),
+                                                                  bottomLeft: Radius.circular(16),
+                                                                ),
+                                                              ),
+                                                              child: HtmlWidget(
+                                                                coPaymentRule.copaymentRules ?? '',
+                                                                renderMode: RenderMode.column,
+                                                                enableCaching: true,
+                                                                textStyle: textStyle.heading4.copyWith(
+                                                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                                              )),
+                                                          flex: 4,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
+
+                                                  if (index < (data.zones ?? []).length - 1)
+                                                    Container(
+                                                      width: double.infinity,
+                                                      color: AppColors().color_skin2,
+                                                      height: 2,
+                                                    ),
                                                 ],
                                               ),
-                                            ),
-
-                                            if (index < (data.zones ?? []).length - 1)
-                                              Container(
-                                                width: double.infinity,
-                                                color: AppColors().color_skin2,
-                                                height: 2,
-                                              ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
+                                            );
+                                          }),
+                                    ),
+                                ],
                               ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
+                            ),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -1178,13 +1206,13 @@ Future zoneAndCopaymentBottomSheet({
 
 Future subLimitTreatmentBottomSheet(
     {required BuildContext context,
-      required List<dynamic?>? data,
-      void Function(String)? onSelect,
-      String? title,
-      dynamic selectedValue,
-      Widget? titleBar,
-      int flex = 3,
-      bool showSearchBar = false}) {
+    required List<dynamic?>? data,
+    void Function(String)? onSelect,
+    String? title,
+    dynamic selectedValue,
+    Widget? titleBar,
+    int flex = 3,
+    bool showSearchBar = false}) {
   final width = MediaQuery.of(context).size.width;
   final textStyle = PolifyxTextStyles();
   TextEditingController textEditingController = TextEditingController();
@@ -1255,8 +1283,9 @@ Future subLimitTreatmentBottomSheet(
                         hint: "Search",
                         onChanged: (searched) {
                           if (searched.isNotEmpty) {
-                            var searchData =
-                            copiedData.where((element) => element.toString().toLowerCase().contains("${searched}")).toList();
+                            var searchData = copiedData
+                                .where((element) => element.toString().toLowerCase().contains("${searched}"))
+                                .toList();
                             if (searchData.length > 0) {
                               data = searchData;
                             } else {
@@ -1316,72 +1345,74 @@ Future subLimitTreatmentBottomSheet(
                       ),
                   data!.isNotEmpty
                       ? Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      thickness: 8,
-                      child: ListView.separated(
-                          itemCount: data?.length ?? 0,
-                          separatorBuilder: (context, index) {
-                            return DottedLine(
-                              dashColor: Colors.grey.withOpacity(0.5),
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            var item = data![index];
-                            return IntrinsicHeight(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  WidthSpace(width: 16),
-                                  Expanded(
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(vertical: 8),
-                                      child: Text("${item['treatment']}"),
-                                    ),
-                                    flex: flex,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                                    child: CustomPaint(painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
-                                  ),
-                                  Expanded(
-                                      child: Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 8),
-                                          decoration: BoxDecoration(
-                                            color: AppColors().light_green5,
-                                            borderRadius: BorderRadius.circular(4),
-                                            border: Border.all(
-                                              color: AppColors().green2,
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                          child: Center(child: Text("${item['coverage1']}")))),
-                                  if (item['coverage2'] != null)
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                                      child: CustomPaint(painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
-                                    ),
-                                  if (item['coverage2'] != null)
-                                    Expanded(
-                                        child: Container(
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            thickness: 8,
+                            child: ListView.separated(
+                                itemCount: data?.length ?? 0,
+                                separatorBuilder: (context, index) {
+                                  return DottedLine(
+                                    dashColor: Colors.grey.withOpacity(0.5),
+                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  var item = data![index];
+                                  return IntrinsicHeight(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        WidthSpace(width: 16),
+                                        Expanded(
+                                          child: Container(
                                             margin: const EdgeInsets.symmetric(vertical: 8),
-                                            decoration: BoxDecoration(
-                                              color: AppColors().light_green5,
-                                              borderRadius: BorderRadius.circular(4),
-                                              border: Border.all(
-                                                color: AppColors().green2,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                            child: Center(child: Text("${item['coverage2']}")))),
-                                  WidthSpace(width: 16),
-                                ],
-                              ),
-                            );
-                          }),
-                    ),
-                  )
+                                            child: Text("${item['treatment']}"),
+                                          ),
+                                          flex: flex,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                          child: CustomPaint(
+                                              painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
+                                        ),
+                                        Expanded(
+                                            child: Container(
+                                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors().light_green5,
+                                                  borderRadius: BorderRadius.circular(4),
+                                                  border: Border.all(
+                                                    color: AppColors().green2,
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                child: Center(child: Text("${item['coverage1']}")))),
+                                        if (item['coverage2'] != null)
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                            child: CustomPaint(
+                                                painter: DashedLineVerticalPainter(), size: Size(1, double.infinity)),
+                                          ),
+                                        if (item['coverage2'] != null)
+                                          Expanded(
+                                              child: Container(
+                                                  margin: const EdgeInsets.symmetric(vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors().light_green5,
+                                                    borderRadius: BorderRadius.circular(4),
+                                                    border: Border.all(
+                                                      color: AppColors().green2,
+                                                    ),
+                                                  ),
+                                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                  child: Center(child: Text("${item['coverage2']}")))),
+                                        WidthSpace(width: 16),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
+                        )
                       : NoDataFound(text: "No data found"),
                 ],
               ),
@@ -1398,7 +1429,7 @@ String refactorHtmlForFlutter(String originalHtml) {
   // Replace only flex-wrap wrappers
   updated = updated.replaceAllMapped(
     RegExp(r'<div[^>]*style="[^"]*flex-wrap:\s*wrap[^"]*"[^>]*>'),
-        (match) {
+    (match) {
       // Remove the style but preserve the tag
       return '<div>';
     },
@@ -1453,16 +1484,16 @@ String refactorHtmlForFlutter(String originalHtml) {
 String wrapTable(String html) {
   return html
       .replaceAllMapped(
-    RegExp(r'(<table[^>]*>)'),
+        RegExp(r'(<table[^>]*>)'),
         (match) => '<div style="overflow-x:auto;width:100%;">${match[1]}',
-  )
+      )
       .replaceAll('</table>', '</table></div>');
 }
 
 String forceSecondColumnMinWidth(String html) {
   return html.replaceAllMapped(
     RegExp(r'<table[^>]*>.*?</table>', dotAll: true),
-        (match) {
+    (match) {
       String table = match.group(0)!;
 
       // Match all <th> tags
@@ -1497,6 +1528,7 @@ Future htmlViewBottomSheet({
   required BuildContext context,
   required String? data,
   String? title,
+  bool showTitle = false,
 }) {
   data = wrapTable(data ?? "");
   data = forceSecondColumnMinWidth(data);
@@ -1528,30 +1560,31 @@ Future htmlViewBottomSheet({
             mainAxisSize: MainAxisSize.min,
             children: [
               // 🔹 Fixed Header
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0),
+              if (showTitle == true)
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
+                    ),
+                    color: Colors.grey.withValues(alpha: 0.2),
                   ),
-                  color: Colors.grey.withValues(alpha: 0.2),
-                ),
-                child: Center(
-                    child: Column(
-                      children: [
-                        ContainerDivider(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Text(
-                            title ?? '',
-                            style: textStyle.heading4,
-                          ),
+                  child: Center(
+                      child: Column(
+                    children: [
+                      ContainerDivider(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          title ?? '',
+                          style: textStyle.heading4,
                         ),
-                      ],
-                    )),
-              ),
+                      ),
+                    ],
+                  )),
+                ),
 
               // 🔹 Scrollable content within 90% height
               Flexible(
