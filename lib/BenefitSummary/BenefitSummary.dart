@@ -1055,234 +1055,235 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                           .replaceAll(modernTreatmentList, ""),
                       click: () {
                         //
-                        if ((table_data ?? "").isNotEmpty) {
-                          htmlViewBottomSheet(context: context, title: "", data: table_data);
-                        } else {
-                          showToast("No data available");
-                        }
-                        //
-                        //
-                        // if (removeBrackes(texts[i]).contains(
-                        //     rehabAndPainList)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "Rehab And Pain List",
-                        //       data: rehab_and_pain_coverage_list);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     maternityBenefits)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "Maternity Benefits",
-                        //       data: maternity_benefits_table);
-                        // } else
-                        // if (removeBrackes(texts[i]).contains(wellnessProgram)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "Wellness Program",
-                        //       data: wellness_program_table);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     newBornBabyList)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "New Born Baby Coverage",
-                        //       data: newBornBabyListTable);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     cataractCoverage)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "Cataract Coverage",
-                        //       data: cataract_coverage_list);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     zoneAndCopayment)) {
-                        //   if (zoneAndCopaymentList is Map) {
-                        //     final zoneAndCopaymentModel = ZoneAndCopaymentModel
-                        //         .fromJson(zoneAndCopaymentList);
-                        //     zoneAndCopaymentBottomSheet(context: context,
-                        //         title: "Zone And Co-Payment",
-                        //         data: zoneAndCopaymentModel);
-                        //   } else {
-                        //     htmlViewBottomSheet(context: context,
-                        //         title: "Zone And Co-Payment",
-                        //         data: zoneAndCopaymentList);
-                        //   }
-                        // } else
-                        //   // new key
-                        //   // waiting period sub-limit
-                        // if (removeBrackes(texts[i]).contains(
-                        //     waitingPeriodSubLimits)) {
-                        //   subLimitBottomSheet(
-                        //     context: context,
-                        //     title: "Sub-Limits Treatment",
-                        //     selectedValue: "",
-                        //     data: listOfTreatment,
-                        //     showSearchBar: false,
-                        //     onSelect: (data) {},
-                        //   );
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     mordernTreatmentSubLimits))
-                        // {
-                        //   // new key
-                        //   // modern treatment sub-limits
-                        //   String title = "Sub-Limits (Modern Treatment Coverage)";
-                        //   if (modernCoverageSubLimit is List) {
-                        //     subLimitTreatmentBottomSheet(
-                        //       context: context,
-                        //       flex: 2,
-                        //       title: title,
-                        //       selectedValue: "",
-                        //       data: modernCoverageSubLimit,
-                        //       showSearchBar: false,
-                        //       onSelect: (data) {},
-                        //     );
-                        //   } else {
-                        //     htmlViewBottomSheet(context: context,
-                        //         title: title,
-                        //         data: modernCoverageSubLimit);
-                        //   }
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     treatmentText)) {
-                        //   subLimitBottomSheet(
-                        //     context: context,
-                        //     title: "Sub-Limits Treatment",
-                        //     selectedValue: "",
-                        //     data: listOfTreatment,
-                        //     showSearchBar: false,
-                        //     onSelect: (data) {},
-                        //   );
-                        // } else
-                        // if (removeBrackes(texts[i]).contains("sub-limits")) {
-                        //   String title = "Sub-Limits (Modern Treatment Coverage)";
-                        //   if (modernCoverageSubLimit is List) {
-                        //     subLimitTreatmentBottomSheet(
-                        //       context: context,
-                        //       flex: 2,
-                        //       title: title,
-                        //       selectedValue: "",
-                        //       data: modernCoverageSubLimit,
-                        //       showSearchBar: false,
-                        //       onSelect: (data) {},
-                        //     );
-                        //   } else {
-                        //     htmlViewBottomSheet(context: context,
-                        //         title: title,
-                        //         data: modernCoverageSubLimit);
-                        //   }
-                        // } else if (removeBrackes(texts[i]).contains(zoneText)) {
-                        //   subLimitZoneBottomSheet(
-                        //     context: context,
-                        //     title: "Sub Limits for Cataract Treatment",
-                        //     selectedValue: "",
-                        //     data: listOfZones,
-                        //     onSelect: (data) {},
-                        //   );
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     modernTreatmentList)) {
-                        //   String title = "Modern Treatment Coverage";
-                        //   if (modernCoverage is List) {
-                        //     if ((modernCoverage ?? []).isNotEmpty) {
-                        //       infoDataBottomSheet(
-                        //         context: context,
-                        //         title: title,
-                        //         data: modernCoverage,
-                        //         showSearchBar: false,
-                        //         onSelect: (data) {},
-                        //       );
-                        //     } else {
-                        //       showToast("No data found");
-                        //     }
-                        //   } else {
-                        //     htmlViewBottomSheet(context: context,
-                        //         title: title,
-                        //         data: modernCoverage);
-                        //   }
-                        // } else
-                        // if (removeBrackes(texts[i]).contains(healthCheckUp)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "",
-                        //       data: healthCheckupTableDetailsOtherObj);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     adultVaccination)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "",
-                        //       data: adultVaccinationTableDetailsOtherObj);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     childVaccination)) {
-                        //   htmlViewBottomSheet(context: context,
-                        //       title: "",
-                        //       data: childVaccinationTableDetailsOtherObj);
-                        // } else if (removeBrackes(texts[i]).contains(
-                        //     "list of diseases") ||
-                        //     removeBrackes(texts[i]).contains(
-                        //         "list of ailments")) {
-                        //   //
-                        //   if (listOfDisease != null) {
-                        //     if (listOfDisease is List) {
-                        //       if ((listOfDisease ?? []).length > 0) {
-                        //         var elementZero = listOfDisease![0];
-                        //         if (elementZero is String) {
-                        //           infoDataBottomSheet(
-                        //             context: context,
-                        //             title: "List of Named Ailments",
-                        //             selectedValue: "",
-                        //             data: listOfDisease,
-                        //             showSearchBar: false,
-                        //             onSelect: (data) {},
-                        //           );
-                        //         }
-                        //
-                        //         if (elementZero is Map) {
-                        //           namedAilmentListBottomSheet(
-                        //             context: context,
-                        //             title: "List of Named Ailments",
-                        //             selectedValue: "",
-                        //             data: listOfDisease,
-                        //             onSelect: (data) {},
-                        //           );
-                        //         }
-                        //       } else {
-                        //         showToast("No data found");
-                        //       }
-                        //     } else {
-                        //       showToast("No data found");
-                        //     }
-                        //   } else {
-                        //     showToast("No data found");
-                        //   }
-                        // } else
-                        // if (removeBrackes(texts[i]).contains(paCoverage)) {
-                        //   if (personalAccidentCoverList != null) {
-                        //     if (personalAccidentCoverList is List) {
-                        //       if ((personalAccidentCoverList ?? []).length >
-                        //           0) {
-                        //         var elementZero = personalAccidentCoverList![0];
-                        //         if (elementZero is String) {
-                        //           infoDataBottomSheet(
-                        //             context: context,
-                        //             title: "",
-                        //             selectedValue: "",
-                        //             data: personalAccidentCoverList,
-                        //             showSearchBar: false,
-                        //             onSelect: (data) {},
-                        //           );
-                        //         }
-                        //         if (elementZero is Map) {
-                        //           paCoverageBottomSheet(
-                        //             context: context,
-                        //             title: "Personal accident cover",
-                        //             selectedValue: "",
-                        //             data: personalAccidentCoverList,
-                        //             onSelect: (data) {},
-                        //           );
-                        //         }
-                        //       } else {
-                        //         showToast("No data found");
-                        //       }
-                        //     } else if (personalAccidentCoverList is String) {
-                        //       htmlViewBottomSheet(context: context,
-                        //           title: "Personal accident cover",
-                        //           data: personalAccidentCoverList);
-                        //     } else {
-                        //       showToast("No data found");
-                        //     }
-                        //   } else {
-                        //     showToast("No data found");
-                        //   }
+                        // if ((table_data ?? "").isNotEmpty) {
+                        //   htmlViewBottomSheet(context: context, title: "", data: table_data);
+                        // } else {
+                        //   showToast("No data available");
                         // }
+
+                        //
+                        //
+                        if (removeBrackes(texts[i]).contains(
+                            rehabAndPainList)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "Rehab And Pain List",
+                              data: rehab_and_pain_coverage_list);
+                        } else if (removeBrackes(texts[i]).contains(
+                            maternityBenefits)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "Maternity Benefits",
+                              data: maternity_benefits_table);
+                        } else
+                        if (removeBrackes(texts[i]).contains(wellnessProgram)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "Wellness Program",
+                              data: wellness_program_table);
+                        } else if (removeBrackes(texts[i]).contains(
+                            newBornBabyList)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "New Born Baby Coverage",
+                              data: newBornBabyListTable);
+                        } else if (removeBrackes(texts[i]).contains(
+                            cataractCoverage)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "Cataract Coverage",
+                              data: cataract_coverage_list);
+                        } else if (removeBrackes(texts[i]).contains(
+                            zoneAndCopayment)) {
+                          if (zoneAndCopaymentList is Map) {
+                            final zoneAndCopaymentModel = ZoneAndCopaymentModel
+                                .fromJson(zoneAndCopaymentList);
+                            zoneAndCopaymentBottomSheet(context: context,
+                                title: "Zone And Co-Payment",
+                                data: zoneAndCopaymentModel);
+                          } else {
+                            htmlViewBottomSheet(context: context,
+                                title: "Zone And Co-Payment",
+                                data: zoneAndCopaymentList);
+                          }
+                        } else
+                          // new key
+                          // waiting period sub-limit
+                        if (removeBrackes(texts[i]).contains(
+                            waitingPeriodSubLimits)) {
+                          subLimitBottomSheet(
+                            context: context,
+                            title: "Sub-Limits Treatment",
+                            selectedValue: "",
+                            data: listOfTreatment,
+                            showSearchBar: false,
+                            onSelect: (data) {},
+                          );
+                        } else if (removeBrackes(texts[i]).contains(
+                            mordernTreatmentSubLimits))
+                        {
+                          // new key
+                          // modern treatment sub-limits
+                          String title = "Sub-Limits (Modern Treatment Coverage)";
+                          if (modernCoverageSubLimit is List) {
+                            subLimitTreatmentBottomSheet(
+                              context: context,
+                              flex: 2,
+                              title: title,
+                              selectedValue: "",
+                              data: modernCoverageSubLimit,
+                              showSearchBar: false,
+                              onSelect: (data) {},
+                            );
+                          } else {
+                            htmlViewBottomSheet(context: context,
+                                title: title,
+                                data: modernCoverageSubLimit);
+                          }
+                        } else if (removeBrackes(texts[i]).contains(
+                            treatmentText)) {
+                          subLimitBottomSheet(
+                            context: context,
+                            title: "Sub-Limits Treatment",
+                            selectedValue: "",
+                            data: listOfTreatment,
+                            showSearchBar: false,
+                            onSelect: (data) {},
+                          );
+                        } else
+                        if (removeBrackes(texts[i]).contains("sub-limits")) {
+                          String title = "Sub-Limits (Modern Treatment Coverage)";
+                          if (modernCoverageSubLimit is List) {
+                            subLimitTreatmentBottomSheet(
+                              context: context,
+                              flex: 2,
+                              title: title,
+                              selectedValue: "",
+                              data: modernCoverageSubLimit,
+                              showSearchBar: false,
+                              onSelect: (data) {},
+                            );
+                          } else {
+                            htmlViewBottomSheet(context: context,
+                                title: title,
+                                data: modernCoverageSubLimit);
+                          }
+                        } else if (removeBrackes(texts[i]).contains(zoneText)) {
+                          subLimitZoneBottomSheet(
+                            context: context,
+                            title: "Sub Limits for Cataract Treatment",
+                            selectedValue: "",
+                            data: listOfZones,
+                            onSelect: (data) {},
+                          );
+                        } else if (removeBrackes(texts[i]).contains(
+                            modernTreatmentList)) {
+                          String title = "Modern Treatment Coverage";
+                          if (modernCoverage is List) {
+                            if ((modernCoverage ?? []).isNotEmpty) {
+                              infoDataBottomSheet(
+                                context: context,
+                                title: title,
+                                data: modernCoverage,
+                                showSearchBar: false,
+                                onSelect: (data) {},
+                              );
+                            } else {
+                              showToast("No data found");
+                            }
+                          } else {
+                            htmlViewBottomSheet(context: context,
+                                title: title,
+                                data: modernCoverage);
+                          }
+                        } else
+                        if (removeBrackes(texts[i]).contains(healthCheckUp)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "",
+                              data: healthCheckupTableDetailsOtherObj);
+                        } else if (removeBrackes(texts[i]).contains(
+                            adultVaccination)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "",
+                              data: adultVaccinationTableDetailsOtherObj);
+                        } else if (removeBrackes(texts[i]).contains(
+                            childVaccination)) {
+                          htmlViewBottomSheet(context: context,
+                              title: "",
+                              data: childVaccinationTableDetailsOtherObj);
+                        } else if (removeBrackes(texts[i]).contains(
+                            "list of diseases") ||
+                            removeBrackes(texts[i]).contains(
+                                "list of ailments")) {
+                          //
+                          if (listOfDisease != null) {
+                            if (listOfDisease is List) {
+                              if ((listOfDisease ?? []).length > 0) {
+                                var elementZero = listOfDisease![0];
+                                if (elementZero is String) {
+                                  infoDataBottomSheet(
+                                    context: context,
+                                    title: "List of Named Ailments",
+                                    selectedValue: "",
+                                    data: listOfDisease,
+                                    showSearchBar: false,
+                                    onSelect: (data) {},
+                                  );
+                                }
+
+                                if (elementZero is Map) {
+                                  namedAilmentListBottomSheet(
+                                    context: context,
+                                    title: "List of Named Ailments",
+                                    selectedValue: "",
+                                    data: listOfDisease,
+                                    onSelect: (data) {},
+                                  );
+                                }
+                              } else {
+                                showToast("No data found");
+                              }
+                            } else {
+                              showToast("No data found");
+                            }
+                          } else {
+                            showToast("No data found");
+                          }
+                        } else
+                        if (removeBrackes(texts[i]).contains(paCoverage)) {
+                          if (personalAccidentCoverList != null) {
+                            if (personalAccidentCoverList is List) {
+                              if ((personalAccidentCoverList ?? []).length >
+                                  0) {
+                                var elementZero = personalAccidentCoverList![0];
+                                if (elementZero is String) {
+                                  infoDataBottomSheet(
+                                    context: context,
+                                    title: "",
+                                    selectedValue: "",
+                                    data: personalAccidentCoverList,
+                                    showSearchBar: false,
+                                    onSelect: (data) {},
+                                  );
+                                }
+                                if (elementZero is Map) {
+                                  paCoverageBottomSheet(
+                                    context: context,
+                                    title: "Personal accident cover",
+                                    selectedValue: "",
+                                    data: personalAccidentCoverList,
+                                    onSelect: (data) {},
+                                  );
+                                }
+                              } else {
+                                showToast("No data found");
+                              }
+                            } else if (personalAccidentCoverList is String) {
+                              htmlViewBottomSheet(context: context,
+                                  title: "Personal accident cover",
+                                  data: personalAccidentCoverList);
+                            } else {
+                              showToast("No data found");
+                            }
+                          } else {
+                            showToast("No data found");
+                          }
+                        }
 
                         //.....
                       },
