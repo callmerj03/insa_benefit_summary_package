@@ -6,6 +6,7 @@ import '../AppColors.dart';
 import '../Commons.dart';
 import '../Images.dart';
 import '../Models/KeyValueModel.dart';
+import '../Models/ZoneAndCopaymentModel.dart';
 import '../NoDataFound.dart';
 import '../infoDataBottomSheet.dart';
 import '../primaryButton.dart';
