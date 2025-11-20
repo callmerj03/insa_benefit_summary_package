@@ -116,7 +116,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   List<dynamic>? listOfZones = [];
   List<dynamic>? listOfTreatment = [];
   dynamic personalAccidentCoverList;
-  dynamic? zoneAndCopaymentList = {};
+  dynamic zoneAndCopaymentList = {};
   dynamic cataract_coverage_list;
   dynamic rehab_and_pain_coverage_list;
   dynamic maternity_benefits_table;
