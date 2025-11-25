@@ -24,10 +24,12 @@ class BenefitSummary extends StatefulWidget {
   Map<String, dynamic> jsonObject;
   Function() moveToResultScreen;
   Color buttonColor;
+  bool enableHtml;
 
   BenefitSummary({
     super.key,
     this.policyId,
+    required this.enableHtml,
     required this.moveToResultScreen,
     required this.isPaid,
     required this.amountPopup,
@@ -193,8 +195,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
               var disclaimer = obj['disclaimer'];
               var table_data = obj['table_data'];
               if (header != null) {
-                hospitalList
-                    .add(KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data));
+                hospitalList.add(
+                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                );
               }
             } else {}
           }
@@ -210,8 +213,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
               var disclaimer = obj['disclaimer'];
               var table_data = obj['table_data'];
               if (header != null) {
-                otherList
-                    .add(KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data));
+                otherList.add(
+                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                );
               }
             } else {}
           }
@@ -227,8 +231,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
               var disclaimer = obj['disclaimer'];
               var table_data = obj['table_data'];
               if (header != null) {
-                waitignPeriodList
-                    .add(KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data));
+                waitignPeriodList.add(
+                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                );
               }
             } else {}
           }
@@ -249,8 +254,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
             var disclaimer = obj['disclaimer'];
             var table_data = obj['table_data'];
             if (header != null) {
-              hospitalList
-                  .add(KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, true, table_data));
+              hospitalList.add(
+                KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, true, table_data),
+              );
             }
           }
         }
@@ -557,7 +563,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: AppColors().pure_white, borderRadius: const BorderRadius.all(Radius.circular(10))),
+                    color: AppColors().pure_white,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
                   child: getList(selectedCard: selectedCard).length > 0
                       ? ListView.separated(
                           primary: true,
@@ -573,7 +581,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
 
                             return Container(
                               decoration: BoxDecoration(
-                                color: headerTexts.toString().contains(removeBrackes(tag6End)) ||
+                                color:
+                                    headerTexts.toString().contains(removeBrackes(tag6End)) ||
                                         contentTexts.toString().contains(removeBrackes(tag6End)) ||
                                         headerTexts.toString().contains(removeBrackes(tag6)) ||
                                         contentTexts.toString().contains(removeBrackes(tag6)) ||
@@ -599,14 +608,12 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                   borderRadius: index == 0
                                                       ? BorderRadius.only(topLeft: Radius.circular(10))
                                                       : ((getList(selectedCard: selectedCard).length - 1) == index)
-                                                          ? BorderRadius.only(bottomLeft: Radius.circular(10))
-                                                          : null,
+                                                      ? BorderRadius.only(bottomLeft: Radius.circular(10))
+                                                      : null,
                                                   color: getColor(selectedCard: selectedCard).withOpacity(0.4),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                    top: index == 0 ? 12 : 0,
-                                                  ),
+                                                  padding: EdgeInsets.only(top: index == 0 ? 12 : 0),
                                                   child: Image.asset(
                                                     selectedCard == exclusion ? Images.img_cancel : Images.greenTickPng,
                                                     width: selectedCard == exclusion ? 14 : 16,
@@ -619,13 +626,12 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                 child: Align(
                                                   alignment: Alignment.centerLeft,
                                                   child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top: index == 0 ? 12 : 0,
-                                                    ),
+                                                    padding: EdgeInsets.only(top: index == 0 ? 12 : 0),
                                                     child: beneFitText(
-                                                        texts: contentTexts,
-                                                        selectedCard: selectedCard,
-                                                        table_data: table_data),
+                                                      texts: contentTexts,
+                                                      selectedCard: selectedCard,
+                                                      table_data: table_data,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -657,10 +663,16 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                             borderRadius: index != 0
                                                 ? null
                                                 : BorderRadius.only(
-                                                    topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                                                    topLeft: Radius.circular(10),
+                                                    topRight: Radius.circular(10),
+                                                  ),
                                           ),
-                                          padding:
-                                              EdgeInsets.only(left: 16, bottom: 8, right: 16, top: index == 0 ? 16 : 8),
+                                          padding: EdgeInsets.only(
+                                            left: 16,
+                                            bottom: 8,
+                                            right: 16,
+                                            top: index == 0 ? 16 : 8,
+                                          ),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -700,9 +712,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                               ? EdgeInsets.only(left: 16, top: 8, right: 16)
                                               : EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                                           child: beneFitText(
-                                              texts: contentTexts,
-                                              table_data: item.table_data,
-                                              selectedCard: selectedCard),
+                                            texts: contentTexts,
+                                            table_data: item.table_data,
+                                            selectedCard: selectedCard,
+                                          ),
                                         ),
                                         if ((disclaimerTexts ?? "").isNotEmpty)
                                           Container(
@@ -711,7 +724,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                             decoration: BoxDecoration(
                                               color: AppColors().light_grey8,
                                               borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                                                topLeft: Radius.circular(8),
+                                                topRight: Radius.circular(8),
+                                              ),
                                               border: Border.all(
                                                 color: AppColors().light_grey8,
                                                 // Set border color
@@ -727,8 +742,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                             ),
                                             child: Container(
                                               padding: EdgeInsets.all(4),
-                                              child:
-                                                  Text(disclaimerTexts!, style: textStyle.cta2.copyWith(fontSize: 12)),
+                                              child: Text(
+                                                disclaimerTexts!,
+                                                style: textStyle.cta2.copyWith(fontSize: 12),
+                                              ),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(topRight: Radius.circular(8)),
@@ -763,11 +780,15 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)), color: AppColors().light_yellow3),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: AppColors().light_yellow3,
+                    ),
                     margin: EdgeInsets.only(left: 8),
                     padding: EdgeInsets.all(12),
-                    child:
-                        Text(removeAllBrackets(moratoriumPeriod), style: textStyle.subHeading2.copyWith(fontSize: 14)),
+                    child: Text(
+                      removeAllBrackets(moratoriumPeriod),
+                      style: textStyle.subHeading2.copyWith(fontSize: 14),
+                    ),
                   ),
                 ),
             ],
@@ -1011,12 +1032,13 @@ class _BenefitSummaryState extends State<BenefitSummary> {
     );
   }
 
-  Widget beneFitText(
-      {required String selectedCard,
-      required List<String> texts,
-      bool isHeader = false,
-      String? tooltip,
-      required String? table_data}) {
+  Widget beneFitText({
+    required String selectedCard,
+    required List<String> texts,
+    bool isHeader = false,
+    String? tooltip,
+    required String? table_data,
+  }) {
     var textstyle = PolifyxTextStyles();
 
     String text = "";
@@ -1056,185 +1078,180 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                           .replaceAll(modernTreatmentList, ""),
                       click: () {
                         //
-                        // if ((table_data ?? "").isNotEmpty) {
-                        //   htmlViewBottomSheet(context: context, title: "", data: table_data);
-                        // } else {
-                        //   showToast("No data available");
-                        // }
 
-                        //
-                        //
-                        if (removeBrackes(texts[i]).contains(
-                            rehabAndPainList)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "Rehab And Pain List",
-                              data: rehab_and_pain_coverage_list);
-                        } else if (removeBrackes(texts[i]).contains(
-                            maternityBenefits)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "Maternity Benefits",
-                              data: maternity_benefits_table);
-                        } else
-                        if (removeBrackes(texts[i]).contains(wellnessProgram)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "Wellness Program",
-                              data: wellness_program_table);
-                        } else if (removeBrackes(texts[i]).contains(
-                            newBornBabyList)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "New Born Baby Coverage",
-                              data: newBornBabyListTable);
-                        } else if (removeBrackes(texts[i]).contains(
-                            cataractCoverage)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "Cataract Coverage",
-                              data: cataract_coverage_list);
-                        } else if (removeBrackes(texts[i]).contains(
-                            zoneAndCopayment)) {
-                          if (zoneAndCopaymentList is Map) {
-                            final zoneAndCopaymentModel = ZoneAndCopaymentModel
-                                .fromJson(zoneAndCopaymentList);
-                            zoneAndCopaymentBottomSheet(context: context,
-                                title: "Zone And Co-Payment",
-                                data: zoneAndCopaymentModel);
+                        if (widget.enableHtml == true) {
+                          if ((table_data ?? "").isNotEmpty) {
+                            htmlViewBottomSheet(context: context, title: "", data: table_data);
                           } else {
-                            htmlViewBottomSheet(context: context,
-                                title: "Zone And Co-Payment",
-                                data: zoneAndCopaymentList);
+                            showToast("No data available");
                           }
-                        } else
+                        } else {
+                          if (removeBrackes(texts[i]).contains(rehabAndPainList)) {
+                            htmlViewBottomSheet(
+                              context: context,
+                              title: "Rehab And Pain List",
+                              data: rehab_and_pain_coverage_list,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(maternityBenefits)) {
+                            htmlViewBottomSheet(
+                              context: context,
+                              title: "Maternity Benefits",
+                              data: maternity_benefits_table,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(wellnessProgram)) {
+                            htmlViewBottomSheet(
+                              context: context,
+                              title: "Wellness Program",
+                              data: wellness_program_table,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(newBornBabyList)) {
+                            htmlViewBottomSheet(
+                              context: context,
+                              title: "New Born Baby Coverage",
+                              data: newBornBabyListTable,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(cataractCoverage)) {
+                            htmlViewBottomSheet(
+                              context: context,
+                              title: "Cataract Coverage",
+                              data: cataract_coverage_list,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(zoneAndCopayment)) {
+                            if (zoneAndCopaymentList is Map) {
+                              final zoneAndCopaymentModel = ZoneAndCopaymentModel.fromJson(zoneAndCopaymentList);
+                              zoneAndCopaymentBottomSheet(
+                                context: context,
+                                title: "Zone And Co-Payment",
+                                data: zoneAndCopaymentModel,
+                              );
+                            } else {
+                              htmlViewBottomSheet(
+                                context: context,
+                                title: "Zone And Co-Payment",
+                                data: zoneAndCopaymentList,
+                              );
+                            }
+                          } else
                           // new key
                           // waiting period sub-limit
-                        if (removeBrackes(texts[i]).contains(
-                            waitingPeriodSubLimits)) {
-                          subLimitBottomSheet(
-                            context: context,
-                            title: "Sub-Limits Treatment",
-                            selectedValue: "",
-                            data: listOfTreatment,
-                            showSearchBar: false,
-                            onSelect: (data) {},
-                          );
-                        } else if (removeBrackes(texts[i]).contains(
-                            mordernTreatmentSubLimits))
-                        {
-                          // new key
-                          // modern treatment sub-limits
-                          String title = "Sub-Limits (Modern Treatment Coverage)";
-                          if (modernCoverageSubLimit is List) {
-                            subLimitTreatmentBottomSheet(
+                          if (removeBrackes(texts[i]).contains(waitingPeriodSubLimits)) {
+                            subLimitBottomSheet(
                               context: context,
-                              flex: 2,
-                              title: title,
+                              title: "Sub-Limits Treatment",
                               selectedValue: "",
-                              data: modernCoverageSubLimit,
+                              data: listOfTreatment,
                               showSearchBar: false,
                               onSelect: (data) {},
                             );
-                          } else {
-                            htmlViewBottomSheet(context: context,
-                                title: title,
-                                data: modernCoverageSubLimit);
-                          }
-                        } else if (removeBrackes(texts[i]).contains(
-                            treatmentText)) {
-                          subLimitBottomSheet(
-                            context: context,
-                            title: "Sub-Limits Treatment",
-                            selectedValue: "",
-                            data: listOfTreatment,
-                            showSearchBar: false,
-                            onSelect: (data) {},
-                          );
-                        } else
-                        if (removeBrackes(texts[i]).contains("sub-limits")) {
-                          String title = "Sub-Limits (Modern Treatment Coverage)";
-                          if (modernCoverageSubLimit is List) {
-                            subLimitTreatmentBottomSheet(
-                              context: context,
-                              flex: 2,
-                              title: title,
-                              selectedValue: "",
-                              data: modernCoverageSubLimit,
-                              showSearchBar: false,
-                              onSelect: (data) {},
-                            );
-                          } else {
-                            htmlViewBottomSheet(context: context,
-                                title: title,
-                                data: modernCoverageSubLimit);
-                          }
-                        } else if (removeBrackes(texts[i]).contains(zoneText)) {
-                          subLimitZoneBottomSheet(
-                            context: context,
-                            title: "Sub Limits for Cataract Treatment",
-                            selectedValue: "",
-                            data: listOfZones,
-                            onSelect: (data) {},
-                          );
-                        } else if (removeBrackes(texts[i]).contains(
-                            modernTreatmentList)) {
-                          String title = "Modern Treatment Coverage";
-                          if (modernCoverage is List) {
-                            if ((modernCoverage ?? []).isNotEmpty) {
-                              infoDataBottomSheet(
+                          } else if (removeBrackes(texts[i]).contains(mordernTreatmentSubLimits)) {
+                            // new key
+                            // modern treatment sub-limits
+                            String title = "Sub-Limits (Modern Treatment Coverage)";
+                            if (modernCoverageSubLimit is List) {
+                              subLimitTreatmentBottomSheet(
                                 context: context,
+                                flex: 2,
                                 title: title,
-                                data: modernCoverage,
+                                selectedValue: "",
+                                data: modernCoverageSubLimit,
                                 showSearchBar: false,
                                 onSelect: (data) {},
                               );
                             } else {
-                              showToast("No data found");
+                              htmlViewBottomSheet(context: context, title: title, data: modernCoverageSubLimit);
                             }
-                          } else {
-                            htmlViewBottomSheet(context: context,
+                          } else if (removeBrackes(texts[i]).contains(treatmentText)) {
+                            subLimitBottomSheet(
+                              context: context,
+                              title: "Sub-Limits Treatment",
+                              selectedValue: "",
+                              data: listOfTreatment,
+                              showSearchBar: false,
+                              onSelect: (data) {},
+                            );
+                          } else if (removeBrackes(texts[i]).contains("sub-limits")) {
+                            String title = "Sub-Limits (Modern Treatment Coverage)";
+                            if (modernCoverageSubLimit is List) {
+                              subLimitTreatmentBottomSheet(
+                                context: context,
+                                flex: 2,
                                 title: title,
-                                data: modernCoverage);
-                          }
-                        } else
-                        if (removeBrackes(texts[i]).contains(healthCheckUp)) {
-                          htmlViewBottomSheet(context: context,
+                                selectedValue: "",
+                                data: modernCoverageSubLimit,
+                                showSearchBar: false,
+                                onSelect: (data) {},
+                              );
+                            } else {
+                              htmlViewBottomSheet(context: context, title: title, data: modernCoverageSubLimit);
+                            }
+                          } else if (removeBrackes(texts[i]).contains(zoneText)) {
+                            subLimitZoneBottomSheet(
+                              context: context,
+                              title: "Sub Limits for Cataract Treatment",
+                              selectedValue: "",
+                              data: listOfZones,
+                              onSelect: (data) {},
+                            );
+                          } else if (removeBrackes(texts[i]).contains(modernTreatmentList)) {
+                            String title = "Modern Treatment Coverage";
+                            if (modernCoverage is List) {
+                              if ((modernCoverage ?? []).isNotEmpty) {
+                                infoDataBottomSheet(
+                                  context: context,
+                                  title: title,
+                                  data: modernCoverage,
+                                  showSearchBar: false,
+                                  onSelect: (data) {},
+                                );
+                              } else {
+                                showToast("No data found");
+                              }
+                            } else {
+                              htmlViewBottomSheet(context: context, title: title, data: modernCoverage);
+                            }
+                          } else if (removeBrackes(texts[i]).contains(healthCheckUp)) {
+                            htmlViewBottomSheet(context: context, title: "", data: healthCheckupTableDetailsOtherObj);
+                          } else if (removeBrackes(texts[i]).contains(adultVaccination)) {
+                            htmlViewBottomSheet(
+                              context: context,
                               title: "",
-                              data: healthCheckupTableDetailsOtherObj);
-                        } else if (removeBrackes(texts[i]).contains(
-                            adultVaccination)) {
-                          htmlViewBottomSheet(context: context,
+                              data: adultVaccinationTableDetailsOtherObj,
+                            );
+                          } else if (removeBrackes(texts[i]).contains(childVaccination)) {
+                            htmlViewBottomSheet(
+                              context: context,
                               title: "",
-                              data: adultVaccinationTableDetailsOtherObj);
-                        } else if (removeBrackes(texts[i]).contains(
-                            childVaccination)) {
-                          htmlViewBottomSheet(context: context,
-                              title: "",
-                              data: childVaccinationTableDetailsOtherObj);
-                        } else if (removeBrackes(texts[i]).contains(
-                            "list of diseases") ||
-                            removeBrackes(texts[i]).contains(
-                                "list of ailments")) {
-                          //
-                          if (listOfDisease != null) {
-                            if (listOfDisease is List) {
-                              if ((listOfDisease ?? []).length > 0) {
-                                var elementZero = listOfDisease![0];
-                                if (elementZero is String) {
-                                  infoDataBottomSheet(
-                                    context: context,
-                                    title: "List of Named Ailments",
-                                    selectedValue: "",
-                                    data: listOfDisease,
-                                    showSearchBar: false,
-                                    onSelect: (data) {},
-                                  );
-                                }
+                              data: childVaccinationTableDetailsOtherObj,
+                            );
+                          } else if (removeBrackes(texts[i]).contains("list of diseases") ||
+                              removeBrackes(texts[i]).contains("list of ailments")) {
+                            //
+                            if (listOfDisease != null) {
+                              if (listOfDisease is List) {
+                                if ((listOfDisease ?? []).length > 0) {
+                                  var elementZero = listOfDisease![0];
+                                  if (elementZero is String) {
+                                    infoDataBottomSheet(
+                                      context: context,
+                                      title: "List of Named Ailments",
+                                      selectedValue: "",
+                                      data: listOfDisease,
+                                      showSearchBar: false,
+                                      onSelect: (data) {},
+                                    );
+                                  }
 
-                                if (elementZero is Map) {
-                                  namedAilmentListBottomSheet(
-                                    context: context,
-                                    title: "List of Named Ailments",
-                                    selectedValue: "",
-                                    data: listOfDisease,
-                                    onSelect: (data) {},
-                                  );
+                                  if (elementZero is Map) {
+                                    namedAilmentListBottomSheet(
+                                      context: context,
+                                      title: "List of Named Ailments",
+                                      selectedValue: "",
+                                      data: listOfDisease,
+                                      onSelect: (data) {},
+                                    );
+                                  }
+                                } else {
+                                  showToast("No data found");
                                 }
                               } else {
                                 showToast("No data found");
@@ -1242,47 +1259,45 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             } else {
                               showToast("No data found");
                             }
-                          } else {
-                            showToast("No data found");
-                          }
-                        } else
-                        if (removeBrackes(texts[i]).contains(paCoverage)) {
-                          if (personalAccidentCoverList != null) {
-                            if (personalAccidentCoverList is List) {
-                              if ((personalAccidentCoverList ?? []).length >
-                                  0) {
-                                var elementZero = personalAccidentCoverList![0];
-                                if (elementZero is String) {
-                                  infoDataBottomSheet(
-                                    context: context,
-                                    title: "",
-                                    selectedValue: "",
-                                    data: personalAccidentCoverList,
-                                    showSearchBar: false,
-                                    onSelect: (data) {},
-                                  );
+                          } else if (removeBrackes(texts[i]).contains(paCoverage)) {
+                            if (personalAccidentCoverList != null) {
+                              if (personalAccidentCoverList is List) {
+                                if ((personalAccidentCoverList ?? []).length > 0) {
+                                  var elementZero = personalAccidentCoverList![0];
+                                  if (elementZero is String) {
+                                    infoDataBottomSheet(
+                                      context: context,
+                                      title: "",
+                                      selectedValue: "",
+                                      data: personalAccidentCoverList,
+                                      showSearchBar: false,
+                                      onSelect: (data) {},
+                                    );
+                                  }
+                                  if (elementZero is Map) {
+                                    paCoverageBottomSheet(
+                                      context: context,
+                                      title: "Personal accident cover",
+                                      selectedValue: "",
+                                      data: personalAccidentCoverList,
+                                      onSelect: (data) {},
+                                    );
+                                  }
+                                } else {
+                                  showToast("No data found");
                                 }
-                                if (elementZero is Map) {
-                                  paCoverageBottomSheet(
-                                    context: context,
-                                    title: "Personal accident cover",
-                                    selectedValue: "",
-                                    data: personalAccidentCoverList,
-                                    onSelect: (data) {},
-                                  );
-                                }
-                              } else {
-                                showToast("No data found");
-                              }
-                            } else if (personalAccidentCoverList is String) {
-                              htmlViewBottomSheet(context: context,
+                              } else if (personalAccidentCoverList is String) {
+                                htmlViewBottomSheet(
+                                  context: context,
                                   title: "Personal accident cover",
-                                  data: personalAccidentCoverList);
+                                  data: personalAccidentCoverList,
+                                );
+                              } else {
+                                showToast("No data found");
+                              }
                             } else {
                               showToast("No data found");
                             }
-                          } else {
-                            showToast("No data found");
                           }
                         }
 
@@ -1296,15 +1311,21 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                     text: "${removeEndBrackets(texts[i]).trim().replaceAll("<br>", '\n')} ",
                     style: texts[i].contains("${settlement}")
                         ? isHeader == true
-                            ? textstyle.heading3
-                                .copyWith(fontSize: 17, color: AppColors().brown, decoration: TextDecoration.underline)
-                            : textstyle.bodyText1
-                                .copyWith(fontSize: 15, color: AppColors().brown, decoration: TextDecoration.underline)
+                              ? textstyle.heading3.copyWith(
+                                  fontSize: 17,
+                                  color: AppColors().brown,
+                                  decoration: TextDecoration.underline,
+                                )
+                              : textstyle.bodyText1.copyWith(
+                                  fontSize: 15,
+                                  color: AppColors().brown,
+                                  decoration: TextDecoration.underline,
+                                )
                         : texts[i].contains(removeBrackes(tag1End))
-                            ? isHeader == true
-                                ? textstyle.heading3.copyWith(fontSize: 17)
-                                : textstyle.bodyText1Bold.copyWith(fontSize: 15)
-                            : textstyle.bodyText1.copyWith(fontSize: isHeader ? 17 : 15),
+                        ? isHeader == true
+                              ? textstyle.heading3.copyWith(fontSize: 17)
+                              : textstyle.bodyText1Bold.copyWith(fontSize: 15)
+                        : textstyle.bodyText1.copyWith(fontSize: isHeader ? 17 : 15),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         if (removeBrackes(texts[i]).contains("Modern Treatment Coverage")) {
