@@ -25,6 +25,7 @@ class BenefitSummary extends StatefulWidget {
   Function() moveToResultScreen;
   Color buttonColor;
   bool enableHtml;
+  bool fromMotor;
 
   BenefitSummary({
     super.key,
@@ -35,6 +36,7 @@ class BenefitSummary extends StatefulWidget {
     required this.amountPopup,
     required this.jsonObject,
     required this.buttonColor,
+    this.fromMotor = false,
     this.isButtonAnimationAllowed = true,
   });
 
@@ -46,6 +48,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   final textStyle = PolifyxTextStyles();
 
   final hospitalCardKey = GlobalKey();
+  final coveragesCardKey = GlobalKey();
+  final addOnsCardKey = GlobalKey();
   final otherCardKey = GlobalKey();
   final waitingCardKey = GlobalKey();
   final exclusionCardKey = GlobalKey();
@@ -54,6 +58,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   String other_benefits = "other_benefits";
   String waiting_periods = "waiting_periods";
   String exclusion = "exclusion";
+
+  String coverage_list = "coverage_list";
+  String addon_list = "addon_list";
 
   List<String> benefitSummaryStatusList = [];
   int version = 1;
@@ -64,6 +71,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   String selectedCard = "";
 
   List<KeyValueModel> hospitalList = [];
+  List<KeyValueModel> coveragesList = [];
+  List<KeyValueModel> addOnsList = [];
   List<KeyValueModel> otherList = [];
   List<KeyValueModel> waitignPeriodList = [];
   List<KeyValueModel> exclusionList = [];
@@ -105,6 +114,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
       return waitingCardKey;
     } else if (selectedCard == exclusion) {
       return exclusionCardKey;
+    } else if (selectedCard == coverage_list) {
+      return coveragesCardKey;
+    } else if (selectedCard == addon_list) {
+      return addOnsCardKey;
     } else {
       return hospitalCardKey;
     }
@@ -141,6 +154,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
       var hospitalObj;
       var otherObj;
       var waitingPeriodObj;
+      var coveragesObj;
+      var addOnsObj;
       var addOns;
 
       version = data.containsKey('version') == true ? data['version'] : 1;
@@ -160,6 +175,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
         addOns = data['addOns'];
       }
 
+      coveragesObj = data['coverages'];
+      addOnsObj = data['addOns'];
+
       printF("data['addOns']:: ${data['addOns']}");
 
       var exclusionObj = data['exclusions'];
@@ -169,26 +187,150 @@ class _BenefitSummaryState extends State<BenefitSummary> {
       // moratoriumPeriod = moratoriumData != null ? moratoriumData['value'] : null;
       moratoriumPeriod = (jsonObject['data']?['moratoriumPeriod']?['MORATORIUM_PERIOD']?['value'] ?? "");
 
-      if (hospitalObj == null && otherObj == null && waitingPeriodObj == null && exclusionObj == null) {
-        moveToResultScreen();
-      } else {
-        if (exclusionObj == null) {
-          exclusionObj = [];
+      if (widget.fromMotor == true) {
+        if (coveragesObj == null && addOnsObj == null) {
+          moveToResultScreen();
+        } else {
+          coveragesList.clear();
+          addOnsList.clear();
+
+          Iterable<String> coverageKeys = coveragesObj.keys;
+          Iterable<String> addOnKeys = addOnsObj.keys;
+
+          for (var key in coverageKeys) {
+            var obj = coveragesObj[key];
+            if (obj != null) {
+              if (obj is Map) {
+                var header = obj['key'];
+                var content = obj['value'];
+                var tooltip = obj['tooltip'];
+                if (header != null) {
+                  coveragesList.add(
+                    KeyValueModel.withTooltip(header, content, "", false, tooltip, false, ""),
+                  );
+                }
+              } else {}
+            }
+          }
+
+          for (var key in addOnKeys) {
+            var obj = addOnsObj[key];
+            if (obj != null) {
+              if (obj is Map) {
+                var header = obj['key'];
+                var content = obj['value'];
+                var tooltip = obj['tooltip'];
+                var isHighlighted = obj['isHighlighted'] ?? false;
+
+                if (header != null) {
+                  addOnsList.add(
+                    KeyValueModel.withTooltip(header, content, "", false, tooltip, false, "", isHighlighted),
+                  );
+                }
+              } else {}
+            }
+          }
+
+          if (coveragesList.isEmpty && otherList.isEmpty) {
+            moveToResultScreen();
+          } else {
+            //
+            if (coveragesList.isNotEmpty) {
+              benefitSummaryStatusList.add(coverage_list);
+              if (selectedCard.isEmpty) {
+                selectedCard = coverage_list;
+              }
+            }
+
+            //
+            if (addOnsList.isNotEmpty) {
+              benefitSummaryStatusList.add(addon_list);
+              if (selectedCard.isEmpty) {
+                selectedCard = addon_list;
+              }
+            }
+          }
         }
+      } else {
+        if (hospitalObj == null && otherObj == null && waitingPeriodObj == null && exclusionObj == null) {
+          moveToResultScreen();
+        } else {
+          if (exclusionObj == null) {
+            exclusionObj = [];
+          }
 
-        hospitalList.clear();
-        otherList.clear();
-        waitignPeriodList.clear();
-        exclusionList.clear();
+          hospitalList.clear();
+          otherList.clear();
+          waitignPeriodList.clear();
+          exclusionList.clear();
 
-        Iterable<String> hospitalKeys = hospitalObj.keys;
-        Iterable<String> otherKeys = otherObj.keys;
-        Iterable<String> waitingKeys = waitingPeriodObj.keys;
+          Iterable<String> hospitalKeys = hospitalObj.keys;
+          Iterable<String> otherKeys = otherObj.keys;
+          Iterable<String> waitingKeys = waitingPeriodObj.keys;
 
-        for (var key in hospitalKeys) {
-          var obj = hospitalObj[key];
-          if (obj != null) {
-            if (obj is Map) {
+          for (var key in hospitalKeys) {
+            var obj = hospitalObj[key];
+            if (obj != null) {
+              if (obj is Map) {
+                var header = obj['key'];
+                var content = obj['value'];
+                var tooltip = obj['tooltip'];
+                var disclaimer = obj['disclaimer'];
+                var table_data = obj['table_data'];
+                if (header != null) {
+                  hospitalList.add(
+                    KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                  );
+                }
+              } else {}
+            }
+          }
+
+          for (var key in otherKeys) {
+            var obj = otherObj[key];
+            if (obj != null) {
+              if (obj is Map) {
+                var header = obj['key'];
+                var content = obj['value'];
+                var tooltip = obj['tooltip'];
+                var disclaimer = obj['disclaimer'];
+                var table_data = obj['table_data'];
+                if (header != null) {
+                  otherList.add(
+                    KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                  );
+                }
+              } else {}
+            }
+          }
+
+          for (var key in waitingKeys) {
+            var obj = waitingPeriodObj[key];
+            if (obj != null) {
+              if (obj is Map) {
+                var header = obj['key'];
+                var content = obj['value'];
+                var tooltip = obj['tooltip'];
+                var disclaimer = obj['disclaimer'];
+                var table_data = obj['table_data'];
+                if (header != null) {
+                  waitignPeriodList.add(
+                    KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                  );
+                }
+              } else {}
+            }
+          }
+
+          exclusionObj.forEach((e) {
+            exclusionList.add(KeyValueModel(null, e, false));
+          });
+
+          printF(">><<addOns ${addOns}");
+
+          //
+          if (addOns != null) {
+            for (var obj in addOns) {
               var header = obj['key'];
               var content = obj['value'];
               var tooltip = obj['tooltip'];
@@ -196,195 +338,137 @@ class _BenefitSummaryState extends State<BenefitSummary> {
               var table_data = obj['table_data'];
               if (header != null) {
                 hospitalList.add(
-                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
+                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, true, table_data),
                 );
               }
-            } else {}
+            }
           }
-        }
 
-        for (var key in otherKeys) {
-          var obj = otherObj[key];
-          if (obj != null) {
-            if (obj is Map) {
-              var header = obj['key'];
-              var content = obj['value'];
-              var tooltip = obj['tooltip'];
-              var disclaimer = obj['disclaimer'];
-              var table_data = obj['table_data'];
-              if (header != null) {
-                otherList.add(
-                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
-                );
+          if (version == 1) {
+            if (otherObj['MODERN_TREATMENT_COVERAGE_LIST'] != null) {
+              modernCoverage = otherObj['MODERN_TREATMENT_COVERAGE_LIST'];
+            }
+          } else {
+            if (hospitalObj['MODERN_TREATMENT_COVERAGE_LIST'] != null) {
+              modernCoverage = hospitalObj['MODERN_TREATMENT_COVERAGE_LIST'];
+            }
+          }
+
+          if (version == 1) {
+            if (otherObj['MODERN_TREATMENT_SUB_LIMITS'] != null) {
+              modernCoverageSubLimit = otherObj['MODERN_TREATMENT_SUB_LIMITS'];
+            }
+          } else {
+            if (hospitalObj['MODERN_TREATMENT_SUB_LIMITS'] != null) {
+              modernCoverageSubLimit = hospitalObj['MODERN_TREATMENT_SUB_LIMITS'];
+            }
+          }
+
+          if (otherObj['PERSONAL_ACCIDENT_COVER_LIST'] != null) {
+            personalAccidentCoverList = otherObj['PERSONAL_ACCIDENT_COVER_LIST'];
+          }
+
+          if (version == 1) {
+            if (otherObj['HEALTH_CHECK_UP_DETAILS'] != null) {
+              healthCheckupTableDetailsOtherObj = otherObj['HEALTH_CHECK_UP_DETAILS']['tableDetails'];
+            }
+
+            if (otherObj['ADULT_VACCINATION_DETAILS'] != null) {
+              adultVaccinationTableDetailsOtherObj = otherObj['ADULT_VACCINATION_DETAILS']['tableDetails'];
+            }
+
+            if (otherObj['CHILD_VACCINATION_DETAILS'] != null) {
+              childVaccinationTableDetailsOtherObj = otherObj['CHILD_VACCINATION_DETAILS']['tableDetails'];
+            }
+          } else {
+            if (hospitalObj['HEALTH_CHECK_UP_DETAILS'] != null) {
+              healthCheckupTableDetailsOtherObj = hospitalObj['HEALTH_CHECK_UP_DETAILS']['tableDetails'];
+            }
+
+            if (hospitalObj['ADULT_VACCINATION_DETAILS'] != null) {
+              adultVaccinationTableDetailsOtherObj = hospitalObj['ADULT_VACCINATION_DETAILS']['tableDetails'];
+            }
+
+            if (hospitalObj['CHILD_VACCINATION_DETAILS'] != null) {
+              childVaccinationTableDetailsOtherObj = hospitalObj['CHILD_VACCINATION_DETAILS']['tableDetails'];
+            }
+          }
+
+          //
+          if (hospitalObj['CATARACT_COVERAGE_LIST'] != null) {
+            cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
+          }
+
+          if (hospitalObj['MATERNITY_BENEFITS_TABLE'] != null) {
+            maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
+          }
+
+          //
+          if (otherObj['REHAB_AND_PAIN_COVERAGE_LIST'] != null) {
+            rehab_and_pain_coverage_list = otherObj["REHAB_AND_PAIN_COVERAGE_LIST"];
+          }
+
+          if (otherObj['WELLNESS_PROGRAM_TABLE'] != null) {
+            wellness_program_table = otherObj["WELLNESS_PROGRAM_TABLE"];
+          }
+
+          if (otherObj['NEW_BORN_BABY_COVERAGE_LIST'] != null) {
+            newBornBabyListTable = otherObj["NEW_BORN_BABY_COVERAGE_LIST"];
+          }
+
+          if (otherObj['ZONE_AND_COPAYMENT_LIST'] != null) {
+            zoneAndCopaymentList = otherObj['ZONE_AND_COPAYMENT_LIST'];
+          }
+
+          if (waitingPeriodObj['NAMED_AILMENT_LIST'] != null) {
+            listOfDisease = waitingPeriodObj['NAMED_AILMENT_LIST'];
+          }
+
+          if (waitingPeriodObj['SUB_LIMITS_LIST_ZONE'] != null) {
+            listOfZones = waitingPeriodObj['SUB_LIMITS_LIST_ZONE'];
+          }
+
+          if (waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT'] != null) {
+            if (waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT']['sublimits'] != null) {
+              listOfTreatment = waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT']['sublimits'];
+            }
+          }
+
+          // printF(">>>>aaatteeeeehhiiii ${listOfTreatment}");
+
+          if (hospitalList.isEmpty && otherList.isEmpty && waitignPeriodList.isEmpty && exclusionList.isEmpty) {
+            moveToResultScreen();
+          } else {
+            if (hospitalList.isNotEmpty) {
+              benefitSummaryStatusList.add(hospital_limit_coverage);
+              if (selectedCard.isEmpty) {
+                selectedCard = hospital_limit_coverage;
               }
-            } else {}
-          }
-        }
+            }
 
-        for (var key in waitingKeys) {
-          var obj = waitingPeriodObj[key];
-          if (obj != null) {
-            if (obj is Map) {
-              var header = obj['key'];
-              var content = obj['value'];
-              var tooltip = obj['tooltip'];
-              var disclaimer = obj['disclaimer'];
-              var table_data = obj['table_data'];
-              if (header != null) {
-                waitignPeriodList.add(
-                  KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, false, table_data),
-                );
+            if (otherList.isNotEmpty) {
+              benefitSummaryStatusList.add(other_benefits);
+              if (selectedCard.isEmpty) {
+                selectedCard = other_benefits;
               }
-            } else {}
-          }
-        }
-
-        exclusionObj.forEach((e) {
-          exclusionList.add(KeyValueModel(null, e, false));
-        });
-
-        printF(">><<addOns ${addOns}");
-
-        //
-        if (addOns != null) {
-          for (var obj in addOns) {
-            var header = obj['key'];
-            var content = obj['value'];
-            var tooltip = obj['tooltip'];
-            var disclaimer = obj['disclaimer'];
-            var table_data = obj['table_data'];
-            if (header != null) {
-              hospitalList.add(
-                KeyValueModel.withTooltip(header, content, disclaimer, false, tooltip, true, table_data),
-              );
             }
-          }
-        }
 
-        if (version == 1) {
-          if (otherObj['MODERN_TREATMENT_COVERAGE_LIST'] != null) {
-            modernCoverage = otherObj['MODERN_TREATMENT_COVERAGE_LIST'];
-          }
-        } else {
-          if (hospitalObj['MODERN_TREATMENT_COVERAGE_LIST'] != null) {
-            modernCoverage = hospitalObj['MODERN_TREATMENT_COVERAGE_LIST'];
-          }
-        }
-
-        if (version == 1) {
-          if (otherObj['MODERN_TREATMENT_SUB_LIMITS'] != null) {
-            modernCoverageSubLimit = otherObj['MODERN_TREATMENT_SUB_LIMITS'];
-          }
-        } else {
-          if (hospitalObj['MODERN_TREATMENT_SUB_LIMITS'] != null) {
-            modernCoverageSubLimit = hospitalObj['MODERN_TREATMENT_SUB_LIMITS'];
-          }
-        }
-
-        if (otherObj['PERSONAL_ACCIDENT_COVER_LIST'] != null) {
-          personalAccidentCoverList = otherObj['PERSONAL_ACCIDENT_COVER_LIST'];
-        }
-
-        if (version == 1) {
-          if (otherObj['HEALTH_CHECK_UP_DETAILS'] != null) {
-            healthCheckupTableDetailsOtherObj = otherObj['HEALTH_CHECK_UP_DETAILS']['tableDetails'];
-          }
-
-          if (otherObj['ADULT_VACCINATION_DETAILS'] != null) {
-            adultVaccinationTableDetailsOtherObj = otherObj['ADULT_VACCINATION_DETAILS']['tableDetails'];
-          }
-
-          if (otherObj['CHILD_VACCINATION_DETAILS'] != null) {
-            childVaccinationTableDetailsOtherObj = otherObj['CHILD_VACCINATION_DETAILS']['tableDetails'];
-          }
-        } else {
-          if (hospitalObj['HEALTH_CHECK_UP_DETAILS'] != null) {
-            healthCheckupTableDetailsOtherObj = hospitalObj['HEALTH_CHECK_UP_DETAILS']['tableDetails'];
-          }
-
-          if (hospitalObj['ADULT_VACCINATION_DETAILS'] != null) {
-            adultVaccinationTableDetailsOtherObj = hospitalObj['ADULT_VACCINATION_DETAILS']['tableDetails'];
-          }
-
-          if (hospitalObj['CHILD_VACCINATION_DETAILS'] != null) {
-            childVaccinationTableDetailsOtherObj = hospitalObj['CHILD_VACCINATION_DETAILS']['tableDetails'];
-          }
-        }
-
-        //
-        if (hospitalObj['CATARACT_COVERAGE_LIST'] != null) {
-          cataract_coverage_list = hospitalObj["CATARACT_COVERAGE_LIST"];
-        }
-
-        if (hospitalObj['MATERNITY_BENEFITS_TABLE'] != null) {
-          maternity_benefits_table = hospitalObj["MATERNITY_BENEFITS_TABLE"];
-        }
-
-        //
-        if (otherObj['REHAB_AND_PAIN_COVERAGE_LIST'] != null) {
-          rehab_and_pain_coverage_list = otherObj["REHAB_AND_PAIN_COVERAGE_LIST"];
-        }
-
-        if (otherObj['WELLNESS_PROGRAM_TABLE'] != null) {
-          wellness_program_table = otherObj["WELLNESS_PROGRAM_TABLE"];
-        }
-
-        if (otherObj['NEW_BORN_BABY_COVERAGE_LIST'] != null) {
-          newBornBabyListTable = otherObj["NEW_BORN_BABY_COVERAGE_LIST"];
-        }
-
-        if (otherObj['ZONE_AND_COPAYMENT_LIST'] != null) {
-          zoneAndCopaymentList = otherObj['ZONE_AND_COPAYMENT_LIST'];
-        }
-
-        if (waitingPeriodObj['NAMED_AILMENT_LIST'] != null) {
-          listOfDisease = waitingPeriodObj['NAMED_AILMENT_LIST'];
-        }
-
-        if (waitingPeriodObj['SUB_LIMITS_LIST_ZONE'] != null) {
-          listOfZones = waitingPeriodObj['SUB_LIMITS_LIST_ZONE'];
-        }
-
-        if (waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT'] != null) {
-          if (waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT']['sublimits'] != null) {
-            listOfTreatment = waitingPeriodObj['SUB_LIMITS_LIST_TREATMENT']['sublimits'];
-          }
-        }
-
-        // printF(">>>>aaatteeeeehhiiii ${listOfTreatment}");
-
-        if (hospitalList.isEmpty && otherList.isEmpty && waitignPeriodList.isEmpty && exclusionList.isEmpty) {
-          moveToResultScreen();
-        } else {
-          if (hospitalList.isNotEmpty) {
-            benefitSummaryStatusList.add(hospital_limit_coverage);
-            if (selectedCard.isEmpty) {
-              selectedCard = hospital_limit_coverage;
+            if (waitignPeriodList.isNotEmpty) {
+              benefitSummaryStatusList.add(waiting_periods);
+              if (selectedCard.isEmpty) {
+                selectedCard = waiting_periods;
+              }
             }
-          }
 
-          if (otherList.isNotEmpty) {
-            benefitSummaryStatusList.add(other_benefits);
-            if (selectedCard.isEmpty) {
-              selectedCard = other_benefits;
+            if (exclusionList.isNotEmpty) {
+              benefitSummaryStatusList.add(exclusion);
+              if (selectedCard.isEmpty) {
+                selectedCard = exclusion;
+              }
             }
-          }
 
-          if (waitignPeriodList.isNotEmpty) {
-            benefitSummaryStatusList.add(waiting_periods);
-            if (selectedCard.isEmpty) {
-              selectedCard = waiting_periods;
-            }
+            setState(() {});
           }
-
-          if (exclusionList.isNotEmpty) {
-            benefitSummaryStatusList.add(exclusion);
-            if (selectedCard.isEmpty) {
-              selectedCard = exclusion;
-            }
-          }
-
-          setState(() {});
         }
       }
     } else {
@@ -411,9 +495,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   }
 
   Color getColor({required String selectedCard}) {
-    if (selectedCard == hospital_limit_coverage) {
+    if (selectedCard == hospital_limit_coverage || selectedCard == coverage_list) {
       return AppColors().light_peacock;
-    } else if (selectedCard == other_benefits) {
+    } else if (selectedCard == other_benefits || selectedCard == addon_list) {
       return AppColors().bottelGreen_light;
     } else if (selectedCard == waiting_periods) {
       return AppColors().orange_light;
@@ -425,9 +509,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   }
 
   Color getColorDark({required String selectedCard}) {
-    if (selectedCard == hospital_limit_coverage) {
+    if (selectedCard == hospital_limit_coverage || selectedCard == coverage_list) {
       return AppColors().peacock;
-    } else if (selectedCard == other_benefits) {
+    } else if (selectedCard == other_benefits || selectedCard == addon_list) {
       return AppColors().bottelGreen;
     } else if (selectedCard == waiting_periods) {
       return AppColors().orange;
@@ -439,9 +523,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
   }
 
   String getImage({required String selectedCard}) {
-    if (selectedCard == hospital_limit_coverage) {
+    if (selectedCard == hospital_limit_coverage || selectedCard == coverage_list) {
       return Images.img_hosp_benefit_summary;
-    } else if (selectedCard == other_benefits) {
+    } else if (selectedCard == other_benefits || selectedCard == addon_list) {
       return Images.img_other_benefit_summary;
     } else if (selectedCard == waiting_periods) {
       return Images.img_waiting_benefit_summary;
@@ -461,6 +545,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
       return "Waiting Periods";
     } else if (selectedCard == exclusion) {
       return "Exclusions";
+    } else if (selectedCard == coverage_list) {
+      return "Coverages";
+    } else if (selectedCard == addon_list) {
+      return "Add-on Coverages";
     } else {
       return "Hospitalisation Benefits";
     }
@@ -488,6 +576,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
       return waitignPeriodList;
     } else if (selectedCard == exclusion) {
       return exclusionList;
+    } else if (selectedCard == coverage_list) {
+      return coveragesList;
+    } else if (selectedCard == addon_list) {
+      return addOnsList;
     } else {
       return hospitalList;
     }
@@ -566,7 +658,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                     color: AppColors().pure_white,
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: getList(selectedCard: selectedCard).length > 0
+                  child: getList(selectedCard: selectedCard).isNotEmpty
                       ? ListView.separated(
                           primary: true,
                           shrinkWrap: true,
@@ -578,11 +670,24 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             var contentTexts = benefitText(text: item.value ?? "");
                             var disclaimerTexts = item.disclaimer;
                             var table_data = item.table_data;
+                            Color? highLightColor;
+                            var isHighlighted = item.isHighlighted;
+                            if (isHighlighted) {
+                              printF("<<>>>>|| $contentTexts");
+
+                              var content =
+                                  contentTexts.toString().toLowerCase().replaceAll("[", "").replaceAll("]", "");
+                              if (content == "no") {
+                                highLightColor = AppColors().red;
+                                if (content == "yes") {
+                                  highLightColor = AppColors().green1;
+                                }
+                              }
+                            }
 
                             return Container(
                               decoration: BoxDecoration(
-                                color:
-                                    headerTexts.toString().contains(removeBrackes(tag6End)) ||
+                                color: headerTexts.toString().contains(removeBrackes(tag6End)) ||
                                         contentTexts.toString().contains(removeBrackes(tag6End)) ||
                                         headerTexts.toString().contains(removeBrackes(tag6)) ||
                                         contentTexts.toString().contains(removeBrackes(tag6)) ||
@@ -608,8 +713,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                   borderRadius: index == 0
                                                       ? BorderRadius.only(topLeft: Radius.circular(10))
                                                       : ((getList(selectedCard: selectedCard).length - 1) == index)
-                                                      ? BorderRadius.only(bottomLeft: Radius.circular(10))
-                                                      : null,
+                                                          ? BorderRadius.only(bottomLeft: Radius.circular(10))
+                                                          : null,
                                                   color: getColor(selectedCard: selectedCard).withOpacity(0.4),
                                                 ),
                                                 child: Padding(
@@ -688,7 +793,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                       Images.greenTickPng,
                                                       width: 16,
                                                       height: 16,
-                                                      color: getColorDark(selectedCard: selectedCard),
+                                                      color: highLightColor ?? getColorDark(selectedCard: selectedCard),
                                                     ),
                                                   ),
                                                   WidthSpace(width: 8),
@@ -697,6 +802,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                                       child: beneFitText(
                                                         texts: headerTexts,
                                                         isHeader: true,
+                                                        highLightColor: highLightColor,
                                                         tooltip: item.tooltip,
                                                         table_data: item.table_data,
                                                         selectedCard: selectedCard,
@@ -707,16 +813,20 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                             ],
                                           ),
                                         ),
+
+                                        //
                                         Padding(
                                           padding: (disclaimerTexts ?? "").isNotEmpty
                                               ? EdgeInsets.only(left: 16, top: 8, right: 16)
                                               : EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                                           child: beneFitText(
                                             texts: contentTexts,
+                                            highLightColor: highLightColor,
                                             table_data: item.table_data,
                                             selectedCard: selectedCard,
                                           ),
                                         ),
+
                                         if ((disclaimerTexts ?? "").isNotEmpty)
                                           Container(
                                             margin: EdgeInsets.only(left: 16, top: 8, right: 16),
@@ -803,11 +913,14 @@ class _BenefitSummaryState extends State<BenefitSummary> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Stack(
       children: [
         //
         Column(
           children: [
+            //
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -896,6 +1009,39 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             key: exclusionCardKey,
                           ),
                         ),
+
+                      if (coveragesList.isNotEmpty)
+                        summaryCard(
+                          image: Images.img_hosp_benefit_summary,
+                          color: AppColors().light_peacock,
+                          borderColor: AppColors().peacock,
+                          indicatorWidth: screenWidth / 2,
+                          text: 'Coverages',
+                          isSelected: selectedCard == coverage_list ? true : false,
+                          click: () {
+                            selectCard(coverage_list, scrollpageview: true);
+                          },
+                          key: coveragesCardKey,
+                          indicatorColor: getColorDark(selectedCard: selectedCard),
+                        ),
+
+                      if (addOnsList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: summaryCard(
+                            indicatorWidth: screenWidth / 2,
+                            image: Images.img_other_benefit_summary,
+                            color: AppColors().bottelGreen_light,
+                            borderColor: AppColors().bottelGreen,
+                            text: 'Add-on Coverages',
+                            indicatorColor: getColorDark(selectedCard: selectedCard),
+                            isSelected: selectedCard == addon_list ? true : false,
+                            click: () {
+                              selectCard(addon_list, scrollpageview: true);
+                            },
+                            key: addOnsCardKey,
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -930,6 +1076,10 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                   if (waitignPeriodList.isNotEmpty) content(selectedCard: waiting_periods),
                   //
                   if (exclusionList.isNotEmpty) content(selectedCard: exclusion),
+                  //
+                  if (coveragesList.isNotEmpty) content(selectedCard: coverage_list),
+                  //
+                  if (addOnsList.isNotEmpty) content(selectedCard: addon_list),
                 ],
               ),
             ),
@@ -1036,19 +1186,25 @@ class _BenefitSummaryState extends State<BenefitSummary> {
     required String selectedCard,
     required List<String> texts,
     bool isHeader = false,
+    Color? highLightColor,
     String? tooltip,
     required String? table_data,
   }) {
-    var textstyle = PolifyxTextStyles();
+    var textStyle = PolifyxTextStyles();
 
     String text = "";
 
-    texts.forEach((e) {
+    for (var e in texts) {
       text += e;
-    });
+    }
 
-    return Padding(
-      padding: EdgeInsets.only(left: text.contains(tag7) ? 8 : 0),
+    return Container(
+      padding: highLightColor != null
+          ? EdgeInsets.symmetric(horizontal: 8, vertical: 4)
+          : EdgeInsets.only(left: text.contains(tag7) ? 8 : 0),
+      decoration: BoxDecoration(
+          color: isHeader == false ? highLightColor : null,
+          borderRadius: BorderRadius.all(Radius.circular(highLightColor != null ? 4 : 0))),
       child: Text.rich(
         TextSpan(
           children: [
@@ -1309,23 +1465,28 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                 else
                   TextSpan(
                     text: "${removeEndBrackets(texts[i]).trim().replaceAll("<br>", '\n')} ",
-                    style: texts[i].contains("${settlement}")
+                    style: texts[i].contains(settlement)
                         ? isHeader == true
-                              ? textstyle.heading3.copyWith(
-                                  fontSize: 17,
-                                  color: AppColors().brown,
-                                  decoration: TextDecoration.underline,
-                                )
-                              : textstyle.bodyText1.copyWith(
-                                  fontSize: 15,
-                                  color: AppColors().brown,
-                                  decoration: TextDecoration.underline,
-                                )
+                            ? textStyle.heading3.copyWith(
+                                fontSize: 17,
+                                color: highLightColor ?? AppColors().brown,
+                                decoration: TextDecoration.underline,
+                              )
+                            : textStyle.bodyText1.copyWith(
+                                fontSize: 15,
+                                color: highLightColor != null ? AppColors().pure_white : AppColors().brown,
+                                decoration: TextDecoration.underline,
+                              )
                         : texts[i].contains(removeBrackes(tag1End))
-                        ? isHeader == true
-                              ? textstyle.heading3.copyWith(fontSize: 17)
-                              : textstyle.bodyText1Bold.copyWith(fontSize: 15)
-                        : textstyle.bodyText1.copyWith(fontSize: isHeader ? 17 : 15),
+                            ? isHeader == true
+                                ? textStyle.heading3.copyWith(fontSize: 17, color: highLightColor)
+                                : textStyle.bodyText1Bold.copyWith(
+                                    fontSize: 15, color: highLightColor != null ? AppColors().pure_white : null)
+                            : textStyle.bodyText1.copyWith(
+                                fontSize: isHeader ? 17 : 15,
+                                color: highLightColor != null && isHeader == false
+                                    ? AppColors().pure_white
+                                    : highLightColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         if (removeBrackes(texts[i]).contains("Modern Treatment Coverage")) {

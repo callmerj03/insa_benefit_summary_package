@@ -9,18 +9,13 @@ class KeyValueModel {
   String? _table_data;
   bool? _isSelected;
   bool _isAddOn = false;
+  bool _isHighlighted = false;
 
   KeyValueModel(this._key, this._value, this._isSelected);
 
   KeyValueModel.withTooltip(
-    this._key,
-    this._value,
-    this._disclaimer,
-    this._isSelected,
-    this._tooltip,
-    this._isAddOn,
-    this._table_data,
-  );
+      this._key, this._value, this._disclaimer, this._isSelected, this._tooltip, this._isAddOn, this._table_data,
+      [this._isHighlighted = false]);
 
   KeyValueModel.novalue();
 
@@ -82,5 +77,11 @@ class KeyValueModel {
 
   set table_data(String? value) {
     _table_data = value;
+  }
+
+  bool get isHighlighted => _isHighlighted;
+
+  set isHighlighted(bool value) {
+    _isHighlighted = value;
   }
 }

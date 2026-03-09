@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insa_benefit_summary_package/AppColors.dart';
 import 'package:insa_benefit_summary_package/BenefitSummary/BenefitSummary.dart';
+import 'package:insa_benefit_summary_package/Commons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,9 +10,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
     // Map<String, dynamic> map = {
     //   "success": true,
     //   "message": "Benefits Summary Data Fetched Successfully.",
@@ -331,196 +336,310 @@ class MyApp extends StatelessWidget {
     //   }
     // };
 
+    // Map<String, dynamic> map = {
+    //   "success": true,
+    //   "message": "Benefits Summary Data Fetched Successfully.",
+    //   "data": {
+    //     "coverageAndLimits": {
+    //       "IN_PATIENT_CARE": {
+    //         "key": "In-patient Care",
+    //         "value": "Covered up to ₹15,00,000",
+    //         "tooltip": "Coverage for hospitalisation greater than 24 hours.",
+    //         "source_info":
+    //             "Expenses During Hospitalization (Covers AYUSH): Covered up to Sum Insured for 2+ hours of Hospitalization."
+    //       },
+    //       "ROOM_RENT": {
+    //         "key": "Room Rent",
+    //         "value": "Covered up to Sum Insured",
+    //         "tooltip": "Limit on the category of room or amount of room rent.",
+    //         "source_info": "Room Type Capping: Covered up to Sum Insured"
+    //       },
+    //       "ICU_CHARGES": {
+    //         "key": "ICU Charges",
+    //         "value": "Covered up to Sum Insured",
+    //         "tooltip": "Limit on the ICU expenses incurred during hospitalisation.",
+    //         "source_info":
+    //             "Irrespective of the Room type you choose, ICU admission will always be paid up to Sum Insured."
+    //       },
+    //       "AMBULANCE_CHARGES": {
+    //         "key": "Ambulance Charges",
+    //         "value": "Road Ambulance: Covered up to ₹15,00,000, Air Ambulance: Covered up to ₹15,00,000",
+    //         "tooltip": "Coverage for ambulance charges under the policy.",
+    //         "source_info":
+    //             "Expenses in Reaching Hospital\nRoad Ambulance: Up to Sum Insured\nAir Ambulance: Up to Sum Insured"
+    //       },
+    //       "PRE_AND_POST_HOSPITALISATION_EXPENSES": {
+    //         "key": "Pre and Post Hospitalisation Expenses",
+    //         "value": "Covered up to ₹15,00,000 for 60 days (pre) and 180 days (post) respectively",
+    //         "tooltip": "Expenses before and post a hospitalisation that is related to the hospitalisation",
+    //         "source_info":
+    //             "Expenses Before and After a Hospitalization\nCovered up to Sum Insured.\n60 Days and 180 Days Respectively"
+    //       },
+    //       "AYUSH_TREATMENT_COVERAGE": {
+    //         "key": "Ayush Treatment Coverage",
+    //         "value": "Covered up to ₹15,00,000",
+    //         "tooltip": "Treatment under Ayurveda, Unani, Siddhi, Homeopathy branches of medicine",
+    //         "source_info":
+    //             "Expenses During Hospitalization (Covers AYUSH)\nCovered up to Sum Insured for 2+ hours of Hospitalization. (24+ hours for Ayush Treatment)"
+    //       },
+    //       "DAY_CARE_TREATMENTS": {
+    //         "key": "Day Care Treatments",
+    //         "value": "Covered up to ₹15,00,000",
+    //         "tooltip": "Expenses for procedures that can be performed in the hospital in under 24 hours.",
+    //         "source_info": "All Day Care Treatments covered."
+    //       },
+    //       "HOSPITALISATION_AT_HOME": {
+    //         "key": "Hospitalisation at Home",
+    //         "value": "Covered up to ₹15,00,000",
+    //         "tooltip": "Expenses for treatment at home when patient cannot be admitted to the hospital.",
+    //         "source_info": "Home Care/Domiciliary\nCovered up to Sum Insured"
+    //       },
+    //       "VACCINATION": {
+    //         "key": "Vaccination",
+    //         "value": "Covered under M-iracle benefit <button>Click here to see the details</button>",
+    //         "tooltip": "Coverage for vaccinations as specified in the policy.",
+    //         "source_info":
+    //             "Vaccines that will be covered are Tdap (Tetanus, Diphtheria, Pertussis), Td (Tetanus, Diphtheria), Flu Shot, Hepatitis A, Hepatitis B.",
+    //         "table_data":
+    //             "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Vaccines Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Tdap (Tetanus, Diphtheria, Pertussis)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Td (Tetanus, Diphtheria)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Flu Shot</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Hepatitis A</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Hepatitis B</td></tr></table>"
+    //       },
+    //       "MODERN_TREATMENT_COVERAGE": {
+    //         "key": "Modern Treatment Coverage",
+    //         "value": "Covered up to ₹15,00,000 <button>Click here to see the details</button>",
+    //         "tooltip": "Treatment using advanced medical technology or procedures",
+    //         "source_info": "Modern treatments Up to Sum Insured.",
+    //         "table_data":
+    //             "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Treatments Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Uterine Artery Embolization and HIFU</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Immunotherapy (Monoclonal Antibody injection)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Vaporisation of the prostate (Green laser or holmium laser)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Stem cell therapy for haematological conditions</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Balloon Sinuplasty</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Oral Chemotherapy</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Robotic surgeries</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Stereotactic radio Surgeries</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Deep Brain stimulation</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Intra vitreal injections</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Bronchial Thermoplasty</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Intra Operative Neuro Monitoring (IONM)</td></tr></table>"
+    //       },
+    //       "CATARACT_COVERAGE": {
+    //         "key": "Cataract Coverage",
+    //         "value": "Covered up to ₹15,00,000 after a 24-month waiting period",
+    //         "tooltip": "Coverage for cataract surgery including pre/post hospitalization",
+    //         "source_info":
+    //             "Specific Waiting Period (Not applicable for claims arising due to an accident) (Excl02): 24 months for all of the following conditions\nCataract, glaucoma and retinal detachment"
+    //       },
+    //       "INFERTILITY_TREATMENT": {
+    //         "key": "Infertility Treatment",
+    //         "value": "Covered up to ₹15,000 under M-iracle benefit",
+    //         "tooltip": "Coverage for fertility treatments, including IVF procedures",
+    //         "source_info":
+    //             "M-iracle: The benefit Sum Insured 15,000. The M-iracle benefit covers parenthood expenses including... Treatment for infertility, Assisted reproduction like In vitro fertilization (IVF), Gamete intrafallopian transfer (GIFT), Zygote intrafallopian transfer (ZIFT), Intracytoplasmic Sperm Injection (ICSI)."
+    //       },
+    //       "MATERNITY_BENEFITS": {
+    //         "key": "Maternity Benefits",
+    //         "value": "Covered up to ₹15,000 under M-iracle benefit, with a 24-month waiting period",
+    //         "tooltip": "Cover for cost related to maternity and child birth",
+    //         "source_info":
+    //             "M-iracle Waiting Period: 24 Months. M-iracle: The benefit Sum Insured 15,000. The M-iracle benefit covers parenthood expenses including antenatal check-ups, vaccines for the expecting mother, delivery (Normal or Caesarian), surrogacy, assisted reproduction (IVF, GIFT, ZIFT, ICSI), medical termination of pregnancy, infertility treatment, and charges for legally adopting a child."
+    //       },
+    //       "MORBID_OBESITY_SURGERIES": {
+    //         "key": "Weight Reduction Surgeries",
+    //         "value":
+    //             "Covered up to Sum Insured if specific conditions (like BMI >= 40, or BMI >= 35 with co-morbidities) are met.",
+    //         "tooltip": "Coverage for treatment/surgery of morbid obesity",
+    //         "source_info":
+    //             "Expenses related to the surgical treatment of obesity that does not fulfil all the below conditions: a. Surgery to be conducted is upon the advice of the Doctor. b. The surgery/Procedure conducted should be supported by clinical protocols. c. The member has to be 18 years of age or older and; d. Body Mass Index (BMI); i. greater than or equal to 40 or ii. greater than or equal to 35 in conjunction with any of the following severe co-morbidities following failure of less invasive methods of weight loss"
+    //       },
+    //       "HEALTH_CHECK_UP": {
+    //         "key": "Health Check-up",
+    //         "value":
+    //             "Covered once per policy year from day 1 for a defined list of tests. <button>Click here to see the details</button>",
+    //         "tooltip": "Annual preventive health check up to determine general health and wellness of the insured",
+    //         "source_info": "Annual Health Check-up (Only Cashless)\nCovered for defined list of tests",
+    //         "table_data":
+    //             "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Tests Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Complete blood count (CBC)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Physical Examination</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Urine Routine</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">ESR</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Fasting Blood sugar (FBS)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Lipid Profile</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Kidney function test</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Liver Function Test (LFT)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">ECG</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">X-Ray chest</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum Vitamin D</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Mammogram</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">PAP smear</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Post prandial blood sugar</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Uric Acid</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum Electrolytes</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">HbA1C</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Thyroid function test</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Treadmill test (TMT) or 2D ECHO</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Ultrasound test (USG)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum calcium</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Colonoscopy (for >50 year olds)</td></tr></table>"
+    //       }
+    //     },
+    //     "otherBenefitsAndLimits": {
+    //       "ORGAN_DONAR_COVER": {
+    //         "key": "Organ Donor Cover",
+    //         "value": "Covered up to ₹15,00,000",
+    //         "source_info": "Organ Donor\nCovered up to Sum Insured"
+    //       },
+    //       "RE_FILL": {
+    //         "key": "ReAssure+ Benefit",
+    //         "value":
+    //             "Unlimited Sum Insured triggered on first claim. Maximum for any single claim is up to the Base Sum Insured.",
+    //         "tooltip": "Restores the sum insured after it has been exhausted.",
+    //         "source_info":
+    //             "ReAssure+ ReAssure \"Forever\": First claim paid triggers ReAssure, forever. It is unlimited. Each claim under ReAssure \"Forever\" will be up to Base Sum Insured."
+    //       },
+    //       "LOYALTY_BONUS": {
+    //         "key": "Live Healthy Benefit",
+    //         "value": "Up to 30% discount on renewal premium based on health points earned from walking.",
+    //         "tooltip":
+    //             "A benefit that rewards policyholders for staying with the insurer over time, often in the form of a premium discount or enhanced coverage.",
+    //         "source_info": "Live Healthy\nUp to 30% Discount on Renewal premium basic steps taken."
+    //       },
+    //       "NO_CLAIM_BONUS": {
+    //         "key": "Booster+ Benefit",
+    //         "value":
+    //             "Unutilized Base Sum Insured is carried forward, up to a maximum of ₹75,00,000 (5 times the Base Sum Insured).",
+    //         "tooltip":
+    //             "A reward for not making any claims in a policy year, usually as an increase in sum insured at no extra cost.",
+    //         "source_info": "Booster+\nCarry forward unutilized sum Insured Maximum up to 5X times of Base Sum Insured"
+    //       },
+    //       "CO-PAYMENT": {
+    //         "key": "Co-payment",
+    //         "value": "Not Opted",
+    //         "tooltip": "A fixed percentage of the claim amount that the policyholder must pay out-of-pocket.",
+    //         "source_info": "Co-payment Not Opted"
+    //       }
+    //     },
+    //     "waitingPeriodAndSubLimitsV2": {
+    //       "STANDARD_WAITING_PERIOD": {
+    //         "key": "Standard Waiting Period",
+    //         "value": "30 days from the first policy commencement date for all illnesses.",
+    //         "tooltip": "Only accidental claims are covered in the first 30 days of policy.",
+    //         "source_info":
+    //             "Initial Waiting Period (Excl03) - 30 days for all illnesses (not applicable in case of continuous renewal or accidents)"
+    //       },
+    //       "PRE_EXISTING_DISEASE_WAITING_PERIOD": {
+    //         "key": "Pre-existing diseases Waiting Period",
+    //         "value": "36 months from the first policy commencement date.",
+    //         "tooltip": "The time period after which pre-existing medical conditions are covered by the policy.",
+    //         "source_info":
+    //             "Pre-existing diseases (Excl01): Pre-existing Disease (PED) and its direct complications shall be excluded until the expiry of 36 Months of continuous coverage."
+    //       },
+    //       "SPECIFIC_WAITING_PERIOD": {
+    //         "key": "Named (specific) ailments waiting period",
+    //         "value": "24 months for a specific list of ailments. <button>Click here to see the details</button>",
+    //         "tooltip": "These are a specific set of diseases that are covered after a specified waiting period.",
+    //         "source_info":
+    //             "Specific Waiting Period (Not applicable for claims arising due to an accident) (Excl02): 24 months for all of the following conditions",
+    //         "table_data":
+    //             "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Duration</th><th style=\"border:1px solid #ddd;padding:6px;\">Ailments</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">24 months Waiting Period</td><td style=\"border:1px solid #ddd;padding:6px;\">Pancreatitis and stones in biliary and urinary system<br>Cataract, glaucoma and retinal detachment<br>Hyperplasia of prostate, hydrocele and spermatocele<br>Prolapse uterus or cervix, endometriosis, Fibroids, Polycystic ovarian disease (PCOD), hysterectomy (unless necessitated by Malignancy)<br>Hemorrhoids, fissure, fistula or abscess of anal and rectal region<br>Hernia of any site or type<br>Osteoarthritis, joint replacement, osteoporosis, systemic connective tissue disorders, inflammatory polyarthropathies, Rheumatoid Arthritis, gout, intervertebral disc disorders, arthroscopic surgeries for ligament repair<br>Varicose veins of lower extremities<br>All internal or external benign neoplasms/ tumours, cyst, sinus, polyps, nodules, mass or lump<br>Ulcer, erosion or varices of gastro intestinal tract<br>Surgical treatment for diseases of middle ear and mastoid (including otitis media, cholesteatoma, perforation of tympanic membrane), Tonsils and adenoids, nasal septum and nasal sinuses</td></tr></table>"
+    //       }
+    //     },
+    //     "exclusions": [
+    //       "Treatment for, alcoholism, drug or substance abuse or any addictive condition and consequences thereof.",
+    //       "Expenses for cosmetic or plastic surgery, or any treatment to change appearance unless for reconstruction following an Accident, Burn(s) or Cancer.",
+    //       "Expenses related to any unproven treatment, services, and supplies.",
+    //       "All dental treatments other than due to accidents and cancers.",
+    //       "Artificial life maintenance for the Insured Person who has been declared brain dead or in vegetative state.",
+    //       "Expenses related to rest cure, rehabilitation, and respite care.",
+    //       "Treatment for any Injury or Illness resulting directly or indirectly from nuclear, radiological emissions, war or war like situations.",
+    //       "Expenses for any admission primarily for diagnostic and evaluation purposes."
+    //     ],
+    //     "addOns": [],
+    //     "logs": null,
+    //     "version": 2
+    //   }
+    // };
+
+
     Map<String, dynamic> map = {
       "success": true,
       "message": "Benefits Summary Data Fetched Successfully.",
       "data": {
-        "coverageAndLimits": {
-          "IN_PATIENT_CARE": {
-            "key": "In-patient Care",
-            "value": "Covered up to ₹15,00,000",
-            "tooltip": "Coverage for hospitalisation greater than 24 hours.",
-            "source_info":
-                "Expenses During Hospitalization (Covers AYUSH): Covered up to Sum Insured for 2+ hours of Hospitalization."
+        "_id": "699e9730b16e0e863d35d8cc",
+        "policyId": "98a5b0ad-2b6c-417b-b4d4-2855b4654bf8",
+        "coverages": {
+          "OWN_DAMAGE": {
+            "key": "Own Damage",
+            "value": "Yes",
+            "tooltip": "Repair/Replacement of parts, including labour charges, will be paid for the damaged vehicle.",
+            "isHighlighted": false
           },
-          "ROOM_RENT": {
-            "key": "Room Rent",
-            "value": "Covered up to Sum Insured",
-            "tooltip": "Limit on the category of room or amount of room rent.",
-            "source_info": "Room Type Capping: Covered up to Sum Insured"
+          "LIABILITY": {
+            "key": "Liability",
+            "value": "Yes",
+            "tooltip": "To pay compensation for property damage, death or bodily injury to a third party during the accident.",
+            "isHighlighted": false
           },
-          "ICU_CHARGES": {
-            "key": "ICU Charges",
-            "value": "Covered up to Sum Insured",
-            "tooltip": "Limit on the ICU expenses incurred during hospitalisation.",
-            "source_info":
-                "Irrespective of the Room type you choose, ICU admission will always be paid up to Sum Insured."
-          },
-          "AMBULANCE_CHARGES": {
-            "key": "Ambulance Charges",
-            "value": "Road Ambulance: Covered up to ₹15,00,000, Air Ambulance: Covered up to ₹15,00,000",
-            "tooltip": "Coverage for ambulance charges under the policy.",
-            "source_info":
-                "Expenses in Reaching Hospital\nRoad Ambulance: Up to Sum Insured\nAir Ambulance: Up to Sum Insured"
-          },
-          "PRE_AND_POST_HOSPITALISATION_EXPENSES": {
-            "key": "Pre and Post Hospitalisation Expenses",
-            "value": "Covered up to ₹15,00,000 for 60 days (pre) and 180 days (post) respectively",
-            "tooltip": "Expenses before and post a hospitalisation that is related to the hospitalisation",
-            "source_info":
-                "Expenses Before and After a Hospitalization\nCovered up to Sum Insured.\n60 Days and 180 Days Respectively"
-          },
-          "AYUSH_TREATMENT_COVERAGE": {
-            "key": "Ayush Treatment Coverage",
-            "value": "Covered up to ₹15,00,000",
-            "tooltip": "Treatment under Ayurveda, Unani, Siddhi, Homeopathy branches of medicine",
-            "source_info":
-                "Expenses During Hospitalization (Covers AYUSH)\nCovered up to Sum Insured for 2+ hours of Hospitalization. (24+ hours for Ayush Treatment)"
-          },
-          "DAY_CARE_TREATMENTS": {
-            "key": "Day Care Treatments",
-            "value": "Covered up to ₹15,00,000",
-            "tooltip": "Expenses for procedures that can be performed in the hospital in under 24 hours.",
-            "source_info": "All Day Care Treatments covered."
-          },
-          "HOSPITALISATION_AT_HOME": {
-            "key": "Hospitalisation at Home",
-            "value": "Covered up to ₹15,00,000",
-            "tooltip": "Expenses for treatment at home when patient cannot be admitted to the hospital.",
-            "source_info": "Home Care/Domiciliary\nCovered up to Sum Insured"
-          },
-          "VACCINATION": {
-            "key": "Vaccination",
-            "value": "Covered under M-iracle benefit <button>Click here to see the details</button>",
-            "tooltip": "Coverage for vaccinations as specified in the policy.",
-            "source_info":
-                "Vaccines that will be covered are Tdap (Tetanus, Diphtheria, Pertussis), Td (Tetanus, Diphtheria), Flu Shot, Hepatitis A, Hepatitis B.",
-            "table_data":
-                "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Vaccines Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Tdap (Tetanus, Diphtheria, Pertussis)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Td (Tetanus, Diphtheria)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Flu Shot</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Hepatitis A</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Hepatitis B</td></tr></table>"
-          },
-          "MODERN_TREATMENT_COVERAGE": {
-            "key": "Modern Treatment Coverage",
-            "value": "Covered up to ₹15,00,000 <button>Click here to see the details</button>",
-            "tooltip": "Treatment using advanced medical technology or procedures",
-            "source_info": "Modern treatments Up to Sum Insured.",
-            "table_data":
-                "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Treatments Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Uterine Artery Embolization and HIFU</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Immunotherapy (Monoclonal Antibody injection)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Vaporisation of the prostate (Green laser or holmium laser)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Stem cell therapy for haematological conditions</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Balloon Sinuplasty</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Oral Chemotherapy</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Robotic surgeries</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Stereotactic radio Surgeries</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Deep Brain stimulation</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Intra vitreal injections</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Bronchial Thermoplasty</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Intra Operative Neuro Monitoring (IONM)</td></tr></table>"
-          },
-          "CATARACT_COVERAGE": {
-            "key": "Cataract Coverage",
-            "value": "Covered up to ₹15,00,000 after a 24-month waiting period",
-            "tooltip": "Coverage for cataract surgery including pre/post hospitalization",
-            "source_info":
-                "Specific Waiting Period (Not applicable for claims arising due to an accident) (Excl02): 24 months for all of the following conditions\nCataract, glaucoma and retinal detachment"
-          },
-          "INFERTILITY_TREATMENT": {
-            "key": "Infertility Treatment",
-            "value": "Covered up to ₹15,000 under M-iracle benefit",
-            "tooltip": "Coverage for fertility treatments, including IVF procedures",
-            "source_info":
-                "M-iracle: The benefit Sum Insured 15,000. The M-iracle benefit covers parenthood expenses including... Treatment for infertility, Assisted reproduction like In vitro fertilization (IVF), Gamete intrafallopian transfer (GIFT), Zygote intrafallopian transfer (ZIFT), Intracytoplasmic Sperm Injection (ICSI)."
-          },
-          "MATERNITY_BENEFITS": {
-            "key": "Maternity Benefits",
-            "value": "Covered up to ₹15,000 under M-iracle benefit, with a 24-month waiting period",
-            "tooltip": "Cover for cost related to maternity and child birth",
-            "source_info":
-                "M-iracle Waiting Period: 24 Months. M-iracle: The benefit Sum Insured 15,000. The M-iracle benefit covers parenthood expenses including antenatal check-ups, vaccines for the expecting mother, delivery (Normal or Caesarian), surrogacy, assisted reproduction (IVF, GIFT, ZIFT, ICSI), medical termination of pregnancy, infertility treatment, and charges for legally adopting a child."
-          },
-          "MORBID_OBESITY_SURGERIES": {
-            "key": "Weight Reduction Surgeries",
-            "value":
-                "Covered up to Sum Insured if specific conditions (like BMI >= 40, or BMI >= 35 with co-morbidities) are met.",
-            "tooltip": "Coverage for treatment/surgery of morbid obesity",
-            "source_info":
-                "Expenses related to the surgical treatment of obesity that does not fulfil all the below conditions: a. Surgery to be conducted is upon the advice of the Doctor. b. The surgery/Procedure conducted should be supported by clinical protocols. c. The member has to be 18 years of age or older and; d. Body Mass Index (BMI); i. greater than or equal to 40 or ii. greater than or equal to 35 in conjunction with any of the following severe co-morbidities following failure of less invasive methods of weight loss"
-          },
-          "HEALTH_CHECK_UP": {
-            "key": "Health Check-up",
-            "value":
-                "Covered once per policy year from day 1 for a defined list of tests. <button>Click here to see the details</button>",
-            "tooltip": "Annual preventive health check up to determine general health and wellness of the insured",
-            "source_info": "Annual Health Check-up (Only Cashless)\nCovered for defined list of tests",
-            "table_data":
-                "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Tests Covered</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Complete blood count (CBC)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Physical Examination</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Urine Routine</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">ESR</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Fasting Blood sugar (FBS)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Lipid Profile</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Kidney function test</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Liver Function Test (LFT)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">ECG</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">X-Ray chest</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum Vitamin D</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Mammogram</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">PAP smear</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Post prandial blood sugar</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Uric Acid</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum Electrolytes</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">HbA1C</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Thyroid function test</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Treadmill test (TMT) or 2D ECHO</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Ultrasound test (USG)</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Serum calcium</td></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">Colonoscopy (for >50 year olds)</td></tr></table>"
+          "COMPULSORY_PA_OWNER": {
+            "key": "Compulsory PA Owner/Driver",
+            "value": "Yes",
+            "tooltip": "Mandatory cover for owner-driver death or permanent disability.",
+            "isHighlighted": false
           }
         },
-        "otherBenefitsAndLimits": {
-          "ORGAN_DONAR_COVER": {
-            "key": "Organ Donor Cover",
-            "value": "Covered up to ₹15,00,000",
-            "source_info": "Organ Donor\nCovered up to Sum Insured"
+        "addOns": {
+          "ZERO_DEPRECIATION": {
+            "key": "Zero Depreciation Cover",
+            "value": "Yes",
+            "tooltip": "No depreciation on parts replaced.",
+            "isHighlighted": true
           },
-          "RE_FILL": {
-            "key": "ReAssure+ Benefit",
-            "value":
-                "Unlimited Sum Insured triggered on first claim. Maximum for any single claim is up to the Base Sum Insured.",
-            "tooltip": "Restores the sum insured after it has been exhausted.",
-            "source_info":
-                "ReAssure+ ReAssure \"Forever\": First claim paid triggers ReAssure, forever. It is unlimited. Each claim under ReAssure \"Forever\" will be up to Base Sum Insured."
+          "ENGINE_PROTECTION": {
+            "key": "Engine Protection Cover",
+            "value": "No",
+            "tooltip": "Engine repair will be paid if damage is due to water, leakage, etc.",
+            "isHighlighted": true
           },
-          "LOYALTY_BONUS": {
-            "key": "Live Healthy Benefit",
-            "value": "Up to 30% discount on renewal premium based on health points earned from walking.",
-            "tooltip":
-                "A benefit that rewards policyholders for staying with the insurer over time, often in the form of a premium discount or enhanced coverage.",
-            "source_info": "Live Healthy\nUp to 30% Discount on Renewal premium basic steps taken."
+          "ROADSIDE_ASSISTANCE": {
+            "key": "Roadside Assistance Cover",
+            "value": "No",
+            "tooltip": "24×7 help for petrol shortage, mechanical emergency, towing, etc.",
+            "isHighlighted": false
           },
-          "NO_CLAIM_BONUS": {
-            "key": "Booster+ Benefit",
-            "value":
-                "Unutilized Base Sum Insured is carried forward, up to a maximum of ₹75,00,000 (5 times the Base Sum Insured).",
-            "tooltip":
-                "A reward for not making any claims in a policy year, usually as an increase in sum insured at no extra cost.",
-            "source_info": "Booster+\nCarry forward unutilized sum Insured Maximum up to 5X times of Base Sum Insured"
+          "KEY_REPLACEMENT": {
+            "key": "Key Replacement Cover",
+            "value": "No",
+            "tooltip": "If keys are stolen or damaged.",
+            "isHighlighted": false
           },
-          "CO-PAYMENT": {
-            "key": "Co-payment",
-            "value": "Not Opted",
-            "tooltip": "A fixed percentage of the claim amount that the policyholder must pay out-of-pocket.",
-            "source_info": "Co-payment Not Opted"
+          "CONSUMABLES": {
+            "key": "Consumables Cover",
+            "value": "No",
+            "tooltip": "Everything will be paid during repair, including lubricants, nuts, bolts, etc.",
+            "isHighlighted": false
+          },
+          "OUTSTATION_EMERGENCY": {
+            "key": "Outstation Emergency Cover",
+            "value": "No",
+            "tooltip": "Financial help when your vehicle breaks down during your outstation travel.",
+            "isHighlighted": false
+          },
+          "NCB_PROTECTION": {
+            "key": "No Claim Bonus Protection",
+            "value": "No",
+            "tooltip": "NCB will be applicable even if you have made a claim in previous years.",
+            "isHighlighted": false
+          },
+          "RETURN_TO_INVOICE": {
+            "key": "Return to Invoice Cover",
+            "value": "No",
+            "tooltip": "If your vehicle is a total loss or stolen, the invoice amount will be paid, not the IDV.",
+            "isHighlighted": true
+          },
+          "PA_PASSENGERS": {
+            "key": "Personal Accident Cover for Passengers",
+            "value": "No",
+            "tooltip": "Compensation for the death of passengers travelling in the vehicle during the accident.",
+            "isHighlighted": false
+          },
+          "DAILY_ALLOWANCE": {
+            "key": "Daily Allowance Cover",
+            "value": "No",
+            "tooltip": "Until your vehicle is repaired, you will receive a daily allowance.",
+            "isHighlighted": false
+          },
+          "PASSENGER_COVER": {
+            "key": "Passenger Cover",
+            "value": "No",
+            "tooltip": "Medical treatment expenses of injured passengers.",
+            "isHighlighted": false
+          },
+          "TYRE_PROTECT": {
+            "key": "Tyre Protect Cover",
+            "value": "No",
+            "tooltip": "Your tyre will be fully covered if damaged.",
+            "isHighlighted": true
+          },
+          "LOSS_OF_BELONGINGS": {
+            "key": "Loss of Personal Belongings Cover",
+            "value": "No",
+            "tooltip": "Compensation for items stolen or lost from the vehicle.",
+            "isHighlighted": false
           }
         },
-        "waitingPeriodAndSubLimitsV2": {
-          "STANDARD_WAITING_PERIOD": {
-            "key": "Standard Waiting Period",
-            "value": "30 days from the first policy commencement date for all illnesses.",
-            "tooltip": "Only accidental claims are covered in the first 30 days of policy.",
-            "source_info":
-                "Initial Waiting Period (Excl03) - 30 days for all illnesses (not applicable in case of continuous renewal or accidents)"
-          },
-          "PRE_EXISTING_DISEASE_WAITING_PERIOD": {
-            "key": "Pre-existing diseases Waiting Period",
-            "value": "36 months from the first policy commencement date.",
-            "tooltip": "The time period after which pre-existing medical conditions are covered by the policy.",
-            "source_info":
-                "Pre-existing diseases (Excl01): Pre-existing Disease (PED) and its direct complications shall be excluded until the expiry of 36 Months of continuous coverage."
-          },
-          "SPECIFIC_WAITING_PERIOD": {
-            "key": "Named (specific) ailments waiting period",
-            "value": "24 months for a specific list of ailments. <button>Click here to see the details</button>",
-            "tooltip": "These are a specific set of diseases that are covered after a specified waiting period.",
-            "source_info":
-                "Specific Waiting Period (Not applicable for claims arising due to an accident) (Excl02): 24 months for all of the following conditions",
-            "table_data":
-                "<table style=\"border-collapse:collapse;width:100%;\"><tr style=\"background:#f2f2f2;\"><th style=\"border:1px solid #ddd;padding:6px;\">Duration</th><th style=\"border:1px solid #ddd;padding:6px;\">Ailments</th></tr><tr><td style=\"border:1px solid #ddd;padding:6px;\">24 months Waiting Period</td><td style=\"border:1px solid #ddd;padding:6px;\">Pancreatitis and stones in biliary and urinary system<br>Cataract, glaucoma and retinal detachment<br>Hyperplasia of prostate, hydrocele and spermatocele<br>Prolapse uterus or cervix, endometriosis, Fibroids, Polycystic ovarian disease (PCOD), hysterectomy (unless necessitated by Malignancy)<br>Hemorrhoids, fissure, fistula or abscess of anal and rectal region<br>Hernia of any site or type<br>Osteoarthritis, joint replacement, osteoporosis, systemic connective tissue disorders, inflammatory polyarthropathies, Rheumatoid Arthritis, gout, intervertebral disc disorders, arthroscopic surgeries for ligament repair<br>Varicose veins of lower extremities<br>All internal or external benign neoplasms/ tumours, cyst, sinus, polyps, nodules, mass or lump<br>Ulcer, erosion or varices of gastro intestinal tract<br>Surgical treatment for diseases of middle ear and mastoid (including otitis media, cholesteatoma, perforation of tympanic membrane), Tonsils and adenoids, nasal septum and nasal sinuses</td></tr></table>"
-          }
-        },
-        "exclusions": [
-          "Treatment for, alcoholism, drug or substance abuse or any addictive condition and consequences thereof.",
-          "Expenses for cosmetic or plastic surgery, or any treatment to change appearance unless for reconstruction following an Accident, Burn(s) or Cancer.",
-          "Expenses related to any unproven treatment, services, and supplies.",
-          "All dental treatments other than due to accidents and cancers.",
-          "Artificial life maintenance for the Insured Person who has been declared brain dead or in vegetative state.",
-          "Expenses related to rest cure, rehabilitation, and respite care.",
-          "Treatment for any Injury or Illness resulting directly or indirectly from nuclear, radiological emissions, war or war like situations.",
-          "Expenses for any admission primarily for diagnostic and evaluation purposes."
-        ],
-        "addOns": [],
-        "logs": null,
-        "version": 2
+        "createdAt": 1772001072,
+        "updatedAt": 1772001072,
+        "__v": 0
       }
     };
+
 
     return MaterialApp(
       title: 'Insa Benefit',
@@ -537,9 +656,12 @@ class MyApp extends StatelessWidget {
             amountPopup: Container(),
             isPaid: true,
             jsonObject: map,
-            moveToResultScreen: () {},
+            moveToResultScreen: () {
+              printF("result screen>>");
+            },
             buttonColor: AppColors().primaryThemeColor,
             policyId: "",
+            fromMotor: true,
             enableHtml: true,
           ),
         ),
