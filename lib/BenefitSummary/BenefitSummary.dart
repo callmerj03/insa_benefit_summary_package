@@ -679,9 +679,9 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                                   contentTexts.toString().toLowerCase().replaceAll("[", "").replaceAll("]", "");
                               if (content == "no") {
                                 highLightColor = AppColors().red;
-                                if (content == "yes") {
-                                  highLightColor = AppColors().green1;
-                                }
+                              }
+                              if (content == "yes") {
+                                highLightColor = AppColors().green1;
                               }
                             }
 
