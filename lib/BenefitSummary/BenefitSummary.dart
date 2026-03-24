@@ -901,6 +901,28 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                     ),
                   ),
                 ),
+
+              if (widget.fromMotor)
+                Container(
+                  margin: EdgeInsets.only(bottom: 16, left: 0, right: 0),
+                  decoration: BoxDecoration(
+                    color: AppColors().color_skin1,
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    border: Border.all(color: AppColors().color_skin1, width: 1.5),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: AppColors().light_yellow3,
+                    ),
+                    margin: EdgeInsets.only(left: 8),
+                    padding: EdgeInsets.all(12),
+                    child: Text(
+                      "Note- The highlighted add-ons are recommended to provide complete financial protection for your vehicle in the event of accidental damage or total loss, or theft.",
+                      style: textStyle.heading2.copyWith(fontSize: 14, ),
+                    ),
+                  ),
+                ),
             ],
           ),
 
