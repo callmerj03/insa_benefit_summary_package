@@ -675,6 +675,8 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             if (isHighlighted) {
                               printF("<<>>>>|| $contentTexts");
 
+                              printF("<<>>>>||11---------");
+
                               String content =
                                   contentTexts.toString().toLowerCase().replaceAll("[", "").replaceAll("]", "");
 
