@@ -675,12 +675,12 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                             if (isHighlighted) {
                               printF("<<>>>>|| $contentTexts");
 
-                              var content =
+                              String content =
                                   contentTexts.toString().toLowerCase().replaceAll("[", "").replaceAll("]", "");
-                              if (content == "no") {
+                              if (content.toLowerCase() == "no") {
                                 highLightColor = AppColors().red;
                               }
-                              if (content == "yes") {
+                              if (content.toLowerCase() == "yes") {
                                 highLightColor = AppColors().green1;
                               }
                             }
