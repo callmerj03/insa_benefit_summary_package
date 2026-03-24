@@ -677,6 +677,12 @@ class _BenefitSummaryState extends State<BenefitSummary> {
 
                               String content =
                                   contentTexts.toString().toLowerCase().replaceAll("[", "").replaceAll("]", "");
+
+                              //
+                              printF("<<>>>>||11 $content");
+                              printF("<<>>>>||22 ${content.toLowerCase()}");
+
+                              //
                               if (content.toLowerCase() == "no") {
                                 highLightColor = AppColors().red;
                               }

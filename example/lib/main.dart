@@ -527,13 +527,124 @@ class MyApp extends StatelessWidget {
     //   }
     // };
 
+    // Map<String, dynamic> map = {
+    //   "success": true,
+    //   "message": "Benefits Summary Data Fetched Successfully.",
+    //   "data": {
+    //     "_id": "699e9730b16e0e863d35d8cc",
+    //     "policyId": "98a5b0ad-2b6c-417b-b4d4-2855b4654bf8",
+    //     "coverages": {
+    //       "OWN_DAMAGE": {
+    //         "key": "Own Damage",
+    //         "value": "Yes",
+    //         "tooltip": "Repair/Replacement of parts, including labour charges, will be paid for the damaged vehicle.",
+    //         "isHighlighted": false
+    //       },
+    //       "LIABILITY": {
+    //         "key": "Liability",
+    //         "value": "Yes",
+    //         "tooltip": "To pay compensation for property damage, death or bodily injury to a third party during the accident.",
+    //         "isHighlighted": false
+    //       },
+    //       "COMPULSORY_PA_OWNER": {
+    //         "key": "Compulsory PA Owner/Driver",
+    //         "value": "Yes",
+    //         "tooltip": "Mandatory cover for owner-driver death or permanent disability.",
+    //         "isHighlighted": false
+    //       }
+    //     },
+    //     "addOns": {
+    //       "ZERO_DEPRECIATION": {
+    //         "key": "Zero Depreciation Cover",
+    //         "value": "Yes",
+    //         "tooltip": "No depreciation on parts replaced.",
+    //         "isHighlighted": true
+    //       },
+    //       "ENGINE_PROTECTION": {
+    //         "key": "Engine Protection Cover",
+    //         "value": "No",
+    //         "tooltip": "Engine repair will be paid if damage is due to water, leakage, etc.",
+    //         "isHighlighted": true
+    //       },
+    //       "ROADSIDE_ASSISTANCE": {
+    //         "key": "Roadside Assistance Cover",
+    //         "value": "No",
+    //         "tooltip": "24×7 help for petrol shortage, mechanical emergency, towing, etc.",
+    //         "isHighlighted": false
+    //       },
+    //       "KEY_REPLACEMENT": {
+    //         "key": "Key Replacement Cover",
+    //         "value": "No",
+    //         "tooltip": "If keys are stolen or damaged.",
+    //         "isHighlighted": false
+    //       },
+    //       "CONSUMABLES": {
+    //         "key": "Consumables Cover",
+    //         "value": "No",
+    //         "tooltip": "Everything will be paid during repair, including lubricants, nuts, bolts, etc.",
+    //         "isHighlighted": false
+    //       },
+    //       "OUTSTATION_EMERGENCY": {
+    //         "key": "Outstation Emergency Cover",
+    //         "value": "No",
+    //         "tooltip": "Financial help when your vehicle breaks down during your outstation travel.",
+    //         "isHighlighted": false
+    //       },
+    //       "NCB_PROTECTION": {
+    //         "key": "No Claim Bonus Protection",
+    //         "value": "No",
+    //         "tooltip": "NCB will be applicable even if you have made a claim in previous years.",
+    //         "isHighlighted": false
+    //       },
+    //       "RETURN_TO_INVOICE": {
+    //         "key": "Return to Invoice Cover",
+    //         "value": "No",
+    //         "tooltip": "If your vehicle is a total loss or stolen, the invoice amount will be paid, not the IDV.",
+    //         "isHighlighted": true
+    //       },
+    //       "PA_PASSENGERS": {
+    //         "key": "Personal Accident Cover for Passengers",
+    //         "value": "No",
+    //         "tooltip": "Compensation for the death of passengers travelling in the vehicle during the accident.",
+    //         "isHighlighted": false
+    //       },
+    //       "DAILY_ALLOWANCE": {
+    //         "key": "Daily Allowance Cover",
+    //         "value": "No",
+    //         "tooltip": "Until your vehicle is repaired, you will receive a daily allowance.",
+    //         "isHighlighted": false
+    //       },
+    //       "PASSENGER_COVER": {
+    //         "key": "Passenger Cover",
+    //         "value": "No",
+    //         "tooltip": "Medical treatment expenses of injured passengers.",
+    //         "isHighlighted": false
+    //       },
+    //       "TYRE_PROTECT": {
+    //         "key": "Tyre Protect Cover",
+    //         "value": "No",
+    //         "tooltip": "Your tyre will be fully covered if damaged.",
+    //         "isHighlighted": true
+    //       },
+    //       "LOSS_OF_BELONGINGS": {
+    //         "key": "Loss of Personal Belongings Cover",
+    //         "value": "No",
+    //         "tooltip": "Compensation for items stolen or lost from the vehicle.",
+    //         "isHighlighted": false
+    //       }
+    //     },
+    //     "createdAt": 1772001072,
+    //     "updatedAt": 1772001072,
+    //     "__v": 0
+    //   }
+    // };
 
     Map<String, dynamic> map = {
       "success": true,
       "message": "Benefits Summary Data Fetched Successfully.",
       "data": {
-        "_id": "699e9730b16e0e863d35d8cc",
-        "policyId": "98a5b0ad-2b6c-417b-b4d4-2855b4654bf8",
+        "_id": "69c27e20c994bdf1b4327d92",
+        "policyId": "787c3084-8a55-4495-9589-11b804853843",
         "coverages": {
           "OWN_DAMAGE": {
             "key": "Own Damage",
@@ -543,13 +654,14 @@ class MyApp extends StatelessWidget {
           },
           "LIABILITY": {
             "key": "Liability",
-            "value": "Yes",
-            "tooltip": "To pay compensation for property damage, death or bodily injury to a third party during the accident.",
+            "value": "No",
+            "tooltip":
+                "To pay compensation for property damage, death or bodily injury to a third party during the accident.",
             "isHighlighted": false
           },
           "COMPULSORY_PA_OWNER": {
             "key": "Compulsory PA Owner/Driver",
-            "value": "Yes",
+            "value": "No",
             "tooltip": "Mandatory cover for owner-driver death or permanent disability.",
             "isHighlighted": false
           }
@@ -634,12 +746,11 @@ class MyApp extends StatelessWidget {
             "isHighlighted": false
           }
         },
-        "createdAt": 1772001072,
-        "updatedAt": 1772001072,
+        "createdAt": 1774353952,
+        "updatedAt": 1774353952,
         "__v": 0
       }
     };
-
 
     return MaterialApp(
       title: 'Insa Benefit',
