@@ -910,7 +910,7 @@ class _BenefitSummaryState extends State<BenefitSummary> {
                   ),
                 ),
 
-              if (widget.fromMotor)
+              if (widget.fromMotor && selectedCard == addon_list)
                 Container(
                   margin: EdgeInsets.only(bottom: 16, left: 0, right: 0),
                   decoration: BoxDecoration(
